@@ -31,6 +31,12 @@ ASSESSMENT_QUESTIONS = [
     "What is the baseload at each site?",
 ]
 PEAK_QUESTION = "When did Food Corp. reach peak demand in June 2026?"
+IN_SCOPE_REGRESSION_QUESTIONS = [
+    "rank sites",
+    "what is the baseload of beta resort & spa?",
+    "what iwhat is the baseload of beta resort & spa site?",
+    "what is the baseload of food crop",
+]
 
 
 def main(argv=None) -> int:
@@ -42,6 +48,7 @@ def main(argv=None) -> int:
     )
     parser.add_argument("--peak-runs", type=int, default=10)
     parser.add_argument("--include-assessment", action="store_true")
+    parser.add_argument("--include-in-scope-regressions", action="store_true")
     parser.add_argument(
         "--output",
         type=Path,
@@ -74,6 +81,8 @@ def main(argv=None) -> int:
     questions = [PEAK_QUESTION] * args.peak_runs
     if args.include_assessment:
         questions.extend(ASSESSMENT_QUESTIONS)
+    if args.include_in_scope_regressions:
+        questions.extend(IN_SCOPE_REGRESSION_QUESTIONS)
     records: list[Dict[str, Any]] = []
     for index, question in enumerate(questions, start=1):
         started = time.perf_counter()
@@ -85,6 +94,8 @@ def main(argv=None) -> int:
                     "peak_regression"
                     if question == PEAK_QUESTION
                     else "assessment_question"
+                    if question in ASSESSMENT_QUESTIONS
+                    else "in_scope_regression"
                 ),
                 "status": result.status,
                 "scope": result.scope.get("state"),

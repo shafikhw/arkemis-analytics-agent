@@ -322,9 +322,7 @@ class EnergyAssistant:
                 ToolTraceEntry(
                     name=name,
                     arguments=prepared,
-                    status=(
-                        "success" if validated.status in {"ok", "empty"} else "error"
-                    ),
+                    status="success" if validated.status == "ok" else validated.status,
                     result_summary=_summarize(validated.result),
                     error=(
                         str(validated.result.get("message"))
@@ -567,8 +565,13 @@ class EnergyAssistant:
         *,
         grounding_status: str,
     ) -> AssistantResult:
+        rendered = _normalize_display_precision(
+            render_answer(envelope),
+            validation,
+            decimal_places=self.answer_decimal_places,
+        )
         return AssistantResult(
-            answer=render_answer(envelope),
+            answer=rendered,
             status="answered",
             trace=trace,
             usage=usage,
@@ -777,6 +780,33 @@ def _resolve_json_path(value: Any, path: str) -> Any:
         else:
             current = current[int(index)]
     return current
+
+
+def _normalize_display_precision(
+    answer: str,
+    validation: NumericValidation,
+    *,
+    decimal_places: int,
+) -> str:
+    normalized = answer
+    for match in validation.provenance:
+        token = match.answer_value
+        if match.transformation == "equivalent_timestamp_format":
+            continue
+        numeric = token.replace(",", "").rstrip("%")
+        if "." not in numeric:
+            continue
+        if len(numeric.rsplit(".", 1)[1]) <= decimal_places:
+            continue
+        try:
+            value = float(numeric)
+        except ValueError:
+            continue
+        replacement = f"{value:,.{decimal_places}f}".rstrip("0").rstrip(".")
+        if token.endswith("%"):
+            replacement += "%"
+        normalized = normalized.replace(token, replacement, 1)
+    return normalized
 
 
 def _summarize(value: Any, *, max_items: int = 5, depth: int = 0) -> Any:

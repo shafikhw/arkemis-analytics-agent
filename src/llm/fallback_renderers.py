@@ -24,6 +24,8 @@ def render_fallback(
             for item in results
         ]
         return "\n\n".join(messages) or "No factual result is available."
+    if len(factual) > 1 and all(item.name == "compare_periods" for item in factual):
+        return _render_multi_period_comparison(factual, decimal_places)
     rendered = []
     for item in factual:
         renderer = RENDERERS.get(item.name, _render_generic)
@@ -32,6 +34,56 @@ def render_fallback(
             section = f"### {item.name}\n\n{section}"
         rendered.append(section)
     return "\n\n".join(rendered)
+
+
+def _render_multi_period_comparison(
+    results: Sequence[ValidatedToolResult],
+    places: int,
+) -> str:
+    comparable = [
+        item for item in results if item.result.get("percentage_difference") is not None
+    ]
+    rows = []
+    for item in results:
+        result = item.result
+        name = (
+            (result.get("organization") or {}).get("name")
+            or item.arguments.get("organization")
+            or "Selection"
+        )
+        rows.append(
+            f"- {name}: {_fmt(result.get('percentage_difference'), places)}% "
+            f"({_fmt(result.get('absolute_difference_kwh'), places)} kWh)"
+        )
+    headline = "Period comparison:"
+    if comparable:
+        winner = max(
+            comparable,
+            key=lambda item: float(item.result["percentage_difference"]),
+        )
+        winner_name = (
+            (winner.result.get("organization") or {}).get("name")
+            or winner.arguments.get("organization")
+            or "The leading selection"
+        )
+        winner_change = float(winner.result["percentage_difference"])
+        direction = "increase" if winner_change >= 0 else "change"
+        headline = (
+            f"{winner_name} had the larger week-over-week {direction} at "
+            f"{_fmt(winner_change, places)}%."
+        )
+    warnings: list[str] = []
+    for item in results:
+        warnings.extend(str(value) for value in item.result.get("warnings") or [])
+    return _join(
+        headline,
+        "\n".join(rows),
+        (
+            "Warnings:\n" + "\n".join(f"- {value}" for value in dict.fromkeys(warnings))
+            if warnings
+            else None
+        ),
+    )
 
 
 def _render_consumption(result: Mapping[str, Any], places: int) -> str:

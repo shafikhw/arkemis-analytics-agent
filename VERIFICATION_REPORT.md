@@ -10,7 +10,7 @@ actual final verification commands, not suggested commands.
 | Formatting | `python -m ruff format src tests scripts app.py list_wattics_orgs.py` | Pass; 62 files unchanged |
 | Formatting check | `python -m ruff format --check src tests scripts app.py list_wattics_orgs.py` | Pass; 62 files formatted |
 | Lint | `python -m ruff check src tests scripts app.py list_wattics_orgs.py` | Pass; all checks passed |
-| Static typing | `python -m mypy src scripts` | Pass; no issues in 51 source files |
+| Static typing | `python -m mypy src scripts` | Pass; no issues in 52 source files |
 | Dependency consistency | `python -m pip check` | Pass; no broken requirements |
 | Credential scan | `rg` high-confidence credential patterns, excluding `.env`, private data, virtual environment, PDF, and VCS metadata | Pass; zero matching source files |
 
@@ -22,19 +22,19 @@ All `python` commands used `.\.venv\Scripts\python.exe`.
 |---|---|---:|
 | Unit/data/analytics/scalability | `python -m pytest tests\test_aggregation.py tests\test_analytics.py tests\test_cleaning.py tests\test_quality.py tests\test_extraction.py tests\test_scalability.py -q` | 27 passed |
 | Integration/tool/SDK | `python -m pytest tests\test_discovery.py tests\test_wattics_client.py tests\test_tools.py tests\test_openai_sdk_contract.py -q` | 14 passed |
-| Orchestration/fallback | `python -m pytest tests\test_orchestration.py tests\test_fallback_renderers.py -q` | 7 passed |
-| Guardrail/provenance | `python -m pytest tests\test_scope.py tests\test_response_validation.py -q` | 14 passed |
-| Cost accounting | `python -m pytest tests\test_usage_tracking.py -q` | 4 passed |
+| Orchestration/fallback | `python -m pytest tests\test_orchestration.py tests\test_fallback_renderers.py -q` | 10 passed |
+| Guardrail/provenance | `python -m pytest tests\test_scope.py tests\test_response_validation.py -q` | 16 passed |
+| Cost accounting/UI caption | `python -m pytest tests\test_usage_tracking.py -q` | 5 passed |
 | Synchronization/data integrity | `python -m pytest tests\test_sync_manager.py tests\test_extraction.py tests\test_cleaning.py -q` | 17 passed |
-| Full suite | `python -m pytest -q` | 75 passed |
+| Full suite | `python -m pytest -q` | 81 passed |
 
 The synchronization manager was rerun independently after its persisted-status and
-dead-owner lock recovery fixes: 9/9 tests passed, and the full 75-test suite remained
+dead-owner lock recovery fixes: 9/9 tests passed, and the full 81-test suite remained
 green.
 
 ## Evaluation and smoke tests
 
-- `python scripts\run_evaluations.py`: 54/54 behavioral cases met expectations;
+- `python scripts\run_evaluations.py`: 58/58 behavioral cases met expectations;
   100% tool selection, argument accuracy, answer success, numeric provenance,
   out-of-scope precision, and unsupported-energy handling; zero false refusals and
   unhandled exceptions; peak regression 10/10.
@@ -69,9 +69,33 @@ The live GPT-5.6 Terra runs are detailed in `EVALUATION_REPORT.md`.
   week-over-week case exposed period selection.
 - Final affected assessment rerun after complete-period routing: 5/5 answered, cost
   `$0.1236875`.
-- Total live-evaluation cost: `$0.92988175`.
+- Exact periodless/typo in-scope live regressions: 4/4 answered with zero fallbacks or
+  false refusals; cost `$0.0603125`.
+- Final five-question assessment rerun: 5/5 answered with zero false refusals; cost
+  `$0.1141625`.
+- Total live-evaluation cost: `$1.10435675`.
 
-No additional billable calls were made for the final documentation/status-only fix.
+## In-scope query presentation follow-up
+
+- Scope decisions remain available internally for logging/evaluation but are not
+  rendered in the UI.
+- Per-answer pricing-source URLs and cache-freshness footers were removed. Token/cost
+  captions appear only when usage exists.
+- Periodless ranking and baseload questions deterministically use the latest closed
+  cached month.
+- Organization/site aliases tolerate safe wording errors such as `food crop`, while
+  meter names require exact resolution to avoid selecting contextual numeric meters.
+- Structured model answers and fallbacks normalize long decimal artifacts to the
+  configured three-place display precision.
+- Empty analytics results are labeled `empty` in the trace, not `success`.
+- Multi-organization period fallback identifies the organization with the larger
+  change rather than listing disconnected tool summaries.
+
+The current Streamlit build returned HTTP 200. Static UI checks confirmed that `Scope
+decision`, `source:`, `Answer used`, and `Token usage and cost unavailable` are absent
+from the rendering code. A fresh browser-level inspection was blocked before navigation
+by a local Codex browser-helper permission error; the earlier rendered-browser smoke
+evidence remains recorded above.
 
 ## Refresh follow-up
 

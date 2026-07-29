@@ -10,6 +10,7 @@ from src.llm.usage_tracking import (
     extract_usage,
     merge_usage,
 )
+from src.ui.streamlit_app import _usage_caption
 
 
 def test_gpt_56_terra_regression_cost():
@@ -105,3 +106,25 @@ def test_cost_unavailable_without_usage_or_matching_pricing():
         pricing=pricing,
     )
     assert unknown["estimated_cost_usd"] is None
+
+
+def test_ui_usage_caption_hides_pricing_url_and_absent_usage():
+    assert _usage_caption({}) == ""
+    caption = _usage_caption(
+        {
+            "model": "gpt-5.6-terra",
+            "service_tier": "standard",
+            "input_tokens": 100,
+            "cached_input_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 20,
+            "total_tokens": 120,
+            "estimated_cost_usd": 0.00055,
+            "pricing_configuration_date": "2026-07-29",
+            "pricing_source": "https://developers.openai.com/api/docs/pricing",
+            "assumptions": [],
+        }
+    )
+    assert "estimated cost: $0.0006" in caption
+    assert "source:" not in caption
+    assert "http" not in caption

@@ -193,8 +193,8 @@ without downloading data, refreshes only when the cache exceeds
 `DATA_SYNC_INTERVAL_MINUTES`, and performs the same lightweight check before a query.
 A nonblocking, cross-process `data/metadata/sync.lock` prevents concurrent writers.
 The UI exposes a manual **Refresh data** control and displays last success, running/error
-status, cache age, latest cached observation, failed meters, and whether each answer
-used fresh or stale cached data.
+status, cache age, latest cached observation, and failed meters once in the dashboard
+status area rather than repeating them after every answer.
 
 The same locked manual-refresh path is available from the terminal:
 
@@ -406,9 +406,10 @@ internally and displays `$0.0303`.
 ```
 
 The UI shows configuration/cache status, synchronization controls, freshness, chat
-history, a loading state, expandable scope and tool traces, grounding/fallback state,
-fresh-versus-stale answer metadata, and complete token/cost accounting. It never sends
-the raw interval dataset to the model.
+history, a loading state, expandable tool traces, and token/cost accounting when usage
+is reported. Internal scope/provenance state remains available to logs and evaluations
+but is not rendered in the consultant conversation. It never sends the raw interval
+dataset to the model.
 
 ## Tests and offline smoke check
 

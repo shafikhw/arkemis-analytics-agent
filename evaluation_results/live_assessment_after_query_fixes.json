@@ -1,0 +1,112 @@
+{
+  "generated_at": "2026-07-29T20:47:48.365284+00:00",
+  "model": "gpt-5.6-terra",
+  "service_tier": "standard",
+  "pricing_source": "https://developers.openai.com/api/docs/pricing?latest-pricing=standard",
+  "answer_values_persisted": false,
+  "metrics": {
+    "run_count": 5,
+    "peak_runs": 0,
+    "peak_successes": 0,
+    "answer_success_rate": 1.0,
+    "false_refusal_count": 0,
+    "fallback_usage_count": 1,
+    "average_latency_seconds": 11.96466330000112,
+    "total_tokens": 30430,
+    "total_estimated_cost_usd": 0.1141625
+  },
+  "records": [
+    {
+      "run": 1,
+      "case": "assessment_question",
+      "status": "answered",
+      "scope": "in_scope",
+      "tools": [
+        "get_consumption_summary"
+      ],
+      "tool_statuses": [
+        "success"
+      ],
+      "grounding_status": "passed_after_retry",
+      "fallback_used": false,
+      "error": null,
+      "latency_seconds": 11.105865899997298,
+      "tokens": 2820,
+      "estimated_cost_usd": 0.014775
+    },
+    {
+      "run": 2,
+      "case": "assessment_question",
+      "status": "answered",
+      "scope": "in_scope",
+      "tools": [
+        "compare_periods",
+        "compare_periods"
+      ],
+      "tool_statuses": [
+        "success",
+        "success"
+      ],
+      "grounding_status": "deterministic_fallback",
+      "fallback_used": true,
+      "error": "synthesis_service_error:TypeError",
+      "latency_seconds": 11.898086300003342,
+      "tokens": 1988,
+      "estimated_cost_usd": 0.0106325
+    },
+    {
+      "run": 3,
+      "case": "assessment_question",
+      "status": "answered",
+      "scope": "in_scope",
+      "tools": [
+        "detect_anomalies"
+      ],
+      "tool_statuses": [
+        "success"
+      ],
+      "grounding_status": "passed",
+      "fallback_used": false,
+      "error": null,
+      "latency_seconds": 13.761335800001689,
+      "tokens": 19863,
+      "estimated_cost_usd": 0.0616075
+    },
+    {
+      "run": 4,
+      "case": "assessment_question",
+      "status": "answered",
+      "scope": "in_scope",
+      "tools": [
+        "compare_entities"
+      ],
+      "tool_statuses": [
+        "success"
+      ],
+      "grounding_status": "passed",
+      "fallback_used": false,
+      "error": null,
+      "latency_seconds": 11.628397000000405,
+      "tokens": 1471,
+      "estimated_cost_usd": 0.0093025
+    },
+    {
+      "run": 5,
+      "case": "assessment_question",
+      "status": "answered",
+      "scope": "in_scope",
+      "tools": [
+        "estimate_baseload"
+      ],
+      "tool_statuses": [
+        "success"
+      ],
+      "grounding_status": "passed",
+      "fallback_used": false,
+      "error": null,
+      "latency_seconds": 11.42963150000287,
+      "tokens": 4288,
+      "estimated_cost_usd": 0.017845
+    }
+  ]
+}

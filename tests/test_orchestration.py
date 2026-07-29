@@ -193,6 +193,61 @@ def test_timestamp_fact_maps_to_exact_timestamp_source_field():
     assert result.fallback_used is False
 
 
+def test_structured_answer_rounds_long_grounded_decimals_for_display():
+    class PreciseRegistry:
+        schemas = [{"type": "function", "name": "get_total", "parameters": {}}]
+
+        def execute(self, name, arguments):
+            return {"status": "ok", "total_energy_kwh": 12188.800679166667}
+
+    candidate = structured_answer(
+        "Total consumption was 12188.800679166667 kWh.",
+        "12188.800679166667 kWh",
+    )
+    fake = SimpleNamespace(
+        responses=FakeResponses(
+            [
+                response([function_call()]),
+                response([], candidate),
+            ]
+        )
+    )
+    result = EnergyAssistant(
+        fake,
+        model="test-model",
+        registry=PreciseRegistry(),
+    ).ask("What was consumption?")
+    assert "12,188.801 kWh" in result.answer
+    assert "12188.800679166667" not in result.answer
+
+
+def test_empty_tool_result_is_not_labeled_success():
+    class EmptyRegistry:
+        schemas = [{"type": "function", "name": "get_total", "parameters": {}}]
+
+        def execute(self, name, arguments):
+            return {
+                "status": "empty",
+                "message": "No observations match the requested period.",
+            }
+
+    fake = SimpleNamespace(
+        responses=FakeResponses(
+            [
+                response([function_call()]),
+                response([]),
+            ]
+        )
+    )
+    result = EnergyAssistant(
+        fake,
+        model="test-model",
+        registry=EmptyRegistry(),
+    ).ask("What was consumption?")
+    assert result.status == "data_unavailable"
+    assert result.trace[0].status == "empty"
+
+
 def test_malformed_arguments_become_tool_error():
     fake = SimpleNamespace(
         responses=FakeResponses(

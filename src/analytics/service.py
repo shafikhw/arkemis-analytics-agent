@@ -75,7 +75,7 @@ class AnalyticsService:
         )
         current = filter_local_period(all_data, current_start, current_end)
         previous = filter_local_period(all_data, previous_start, previous_end)
-        return compare_period_values(
+        result = compare_period_values(
             current,
             previous,
             current_start=current_start,
@@ -83,6 +83,8 @@ class AnalyticsService:
             previous_start=previous_start,
             previous_end=previous_end,
         )
+        result.update(_selection_metadata(all_data))
+        return result
 
     def compare_entities(
         self,
@@ -157,3 +159,22 @@ class AnalyticsService:
         normalized = kwargs.pop("normalized", False)
         data, start, end = self.load(**kwargs)
         return load_profile(data, start=start, end=end, normalized=normalized)
+
+
+def _selection_metadata(data: Any) -> Dict[str, Any]:
+    metadata: Dict[str, Any] = {}
+    if data.empty:
+        return metadata
+    for kind in ("organization", "site", "meter"):
+        id_column = f"{kind}_id"
+        name_column = f"{kind}_name"
+        if id_column not in data or name_column not in data:
+            continue
+        entities = data[[id_column, name_column]].drop_duplicates()
+        if len(entities) == 1:
+            row = entities.iloc[0]
+            metadata[kind] = {
+                "id": str(row[id_column]),
+                "name": str(row[name_column]),
+            }
+    return metadata

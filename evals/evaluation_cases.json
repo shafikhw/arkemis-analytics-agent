@@ -16,6 +16,38 @@
       "expected_tools": ["get_consumption_summary"]
     },
     {
+      "id": "regression_periodless_rank_sites",
+      "category": "supported",
+      "question": "rank sites",
+      "expected_scope": "in_scope",
+      "expected_tools": ["rank_sites"],
+      "check_arguments": false
+    },
+    {
+      "id": "regression_periodless_beta_baseload",
+      "category": "supported",
+      "question": "what is the baseload of beta resort & spa?",
+      "expected_scope": "in_scope",
+      "expected_tools": ["estimate_baseload"],
+      "check_arguments": false
+    },
+    {
+      "id": "regression_typo_beta_baseload",
+      "category": "supported",
+      "question": "what iwhat is the baseload of beta resort & spa site?",
+      "expected_scope": "in_scope",
+      "expected_tools": ["estimate_baseload"],
+      "check_arguments": false
+    },
+    {
+      "id": "regression_typo_food_corp_baseload",
+      "category": "supported",
+      "question": "what is the baseload of food crop",
+      "expected_scope": "in_scope",
+      "expected_tools": ["estimate_baseload"],
+      "check_arguments": false
+    },
+    {
       "id": "assessment_week_over_week",
       "category": "assessment",
       "question": "Which organization had the larger week-over-week increase?",

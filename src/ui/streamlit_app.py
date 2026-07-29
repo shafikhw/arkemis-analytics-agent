@@ -122,12 +122,10 @@ def main() -> None:
             st.markdown(message["content"])
             if message.get("trace"):
                 _render_trace(message["trace"])
-            if message.get("scope"):
-                _render_scope(message["scope"])
             if message.get("usage"):
-                st.caption(_usage_caption(message["usage"]))
-            if message.get("cache_freshness"):
-                st.caption(_freshness_caption(message["cache_freshness"]))
+                usage_caption = _usage_caption(message["usage"])
+                if usage_caption:
+                    st.caption(usage_caption)
 
     question = st.chat_input(
         "Ask about consumption, peaks, baseload, profiles, data quality, or anomalies...",
@@ -187,24 +185,15 @@ def main() -> None:
         trace = [asdict(item) for item in result.trace]
         if trace:
             _render_trace(trace)
-        _render_scope(result.scope)
-        st.caption(_usage_caption(result.usage))
-        st.caption(_freshness_caption(result.cache_freshness))
-        if result.fallback_used:
-            st.caption(
-                "A validated deterministic renderer produced this answer after "
-                "model synthesis did not pass provenance validation."
-            )
-        if result.error and not result.fallback_used:
-            st.caption("The request completed with a handled application warning.")
+        usage_caption = _usage_caption(result.usage)
+        if usage_caption:
+            st.caption(usage_caption)
     st.session_state.messages.append(
         {
             "role": "assistant",
             "content": result.answer,
             "trace": trace,
-            "scope": result.scope,
             "usage": result.usage,
-            "cache_freshness": result.cache_freshness,
         }
     )
 
@@ -223,19 +212,9 @@ def _render_trace(trace) -> None:
             )
 
 
-def _render_scope(scope) -> None:
-    if not scope:
-        return
-    with st.expander("Scope decision", expanded=False):
-        st.json(scope, expanded=False)
-
-
 def _usage_caption(usage) -> str:
     if not usage or usage.get("total_tokens") is None:
-        return (
-            f"Model: {usage.get('model') if usage else 'unknown'} · "
-            "Token usage and cost unavailable because the API returned no usage."
-        )
+        return ""
     cost = usage.get("estimated_cost_usd")
     cost_text = f"${cost:.4f}" if cost is not None else "unavailable"
     assumptions = " ".join(usage.get("assumptions") or [])
@@ -246,20 +225,7 @@ def _usage_caption(usage) -> str:
         f"{usage.get('cache_write_tokens')} · output: "
         f"{usage.get('output_tokens')} · total: {usage.get('total_tokens')} · "
         f"estimated cost: {cost_text} · pricing configured "
-        f"{usage.get('pricing_configuration_date')} · "
-        f"source: {usage.get('pricing_source')}. {assumptions}"
-    )
-
-
-def _freshness_caption(value) -> str:
-    if not value:
-        return "Cache freshness unavailable."
-    state = "stale cached data" if value.get("used_stale_cache") else "fresh cache"
-    return (
-        f"Answer used {state}. Data is current through "
-        f"{value.get('latest_cached_observation') or 'an unknown timestamp'}; "
-        f"sync status: {value.get('synchronization_status') or 'unknown'}; "
-        f"failed meters: {value.get('failed_meter_count', 0)}."
+        f"{usage.get('pricing_configuration_date')}. {assumptions}"
     )
 
 

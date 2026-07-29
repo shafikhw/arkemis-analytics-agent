@@ -56,3 +56,42 @@ def test_peak_fallback_uses_validated_fields_and_rounding():
     assert "8,636 of 8,640" in answer
     assert "Organic Farm" in answer
     assert "Effluent Area" in answer
+
+
+def test_multi_period_fallback_identifies_the_larger_increase():
+    results = [
+        ValidatedToolResult(
+            name="compare_periods",
+            arguments={"organization": "63"},
+            result={
+                "status": "ok",
+                "organization": {"id": "63", "name": "Food Corp."},
+                "absolute_difference_kwh": -1166.07544,
+                "percentage_difference": -6.033914,
+                "warnings": ["Food period is partial."],
+            },
+        ),
+        ValidatedToolResult(
+            name="compare_periods",
+            arguments={"organization": "64"},
+            result={
+                "status": "ok",
+                "organization": {
+                    "id": "64",
+                    "name": "Best Resorts Hotels",
+                },
+                "absolute_difference_kwh": 163.65922,
+                "percentage_difference": 0.864255,
+                "warnings": ["Hotel period is partial."],
+            },
+        ),
+    ]
+
+    answer = render_fallback(results)
+
+    assert (
+        "Best Resorts Hotels had the larger week-over-week increase at 0.864%."
+        in answer
+    )
+    assert "Food Corp.: -6.034% (-1,166.075 kWh)" in answer
+    assert "163.659 kWh" in answer

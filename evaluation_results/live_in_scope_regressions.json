@@ -1,0 +1,92 @@
+{
+  "generated_at": "2026-07-29T20:46:34.447372+00:00",
+  "model": "gpt-5.6-terra",
+  "service_tier": "standard",
+  "pricing_source": "https://developers.openai.com/api/docs/pricing?latest-pricing=standard",
+  "answer_values_persisted": false,
+  "metrics": {
+    "run_count": 4,
+    "peak_runs": 0,
+    "peak_successes": 0,
+    "answer_success_rate": 1.0,
+    "false_refusal_count": 0,
+    "fallback_usage_count": 0,
+    "average_latency_seconds": 11.086908749999566,
+    "total_tokens": 11455,
+    "total_estimated_cost_usd": 0.0603125
+  },
+  "records": [
+    {
+      "run": 1,
+      "case": "in_scope_regression",
+      "status": "answered",
+      "scope": "in_scope",
+      "tools": [
+        "rank_sites"
+      ],
+      "tool_statuses": [
+        "success"
+      ],
+      "grounding_status": "passed_after_retry",
+      "fallback_used": false,
+      "error": null,
+      "latency_seconds": 14.92049119999865,
+      "tokens": 3642,
+      "estimated_cost_usd": 0.024505
+    },
+    {
+      "run": 2,
+      "case": "in_scope_regression",
+      "status": "answered",
+      "scope": "in_scope",
+      "tools": [
+        "estimate_baseload"
+      ],
+      "tool_statuses": [
+        "success"
+      ],
+      "grounding_status": "passed",
+      "fallback_used": false,
+      "error": null,
+      "latency_seconds": 10.475898500000767,
+      "tokens": 3116,
+      "estimated_cost_usd": 0.0133525
+    },
+    {
+      "run": 3,
+      "case": "in_scope_regression",
+      "status": "answered",
+      "scope": "in_scope",
+      "tools": [
+        "estimate_baseload"
+      ],
+      "tool_statuses": [
+        "success"
+      ],
+      "grounding_status": "passed",
+      "fallback_used": false,
+      "error": null,
+      "latency_seconds": 12.425069199998688,
+      "tokens": 3120,
+      "estimated_cost_usd": 0.013375
+    },
+    {
+      "run": 4,
+      "case": "in_scope_regression",
+      "status": "answered",
+      "scope": "in_scope",
+      "tools": [
+        "estimate_baseload"
+      ],
+      "tool_statuses": [
+        "success"
+      ],
+      "grounding_status": "passed",
+      "fallback_used": false,
+      "error": null,
+      "latency_seconds": 6.526176100000157,
+      "tokens": 1577,
+      "estimated_cost_usd": 0.00908
+    }
+  ]
+}

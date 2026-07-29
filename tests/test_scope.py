@@ -1,5 +1,9 @@
 from __future__ import annotations
 
+from datetime import date
+
+from conftest import make_energy_frame
+
 from src.data.cache import EnergyCache
 from src.data.discovery import save_hierarchy
 from src.data.schemas import Hierarchy, Meter, Organization, Site
@@ -23,7 +27,15 @@ def registry_with_hierarchy(tmp_path):
                 organization_name="Food Corp.",
                 timezone="UTC",
                 timezone_assumed=True,
-            )
+            ),
+            Site(
+                id="107",
+                name="Beta Resort & Spa",
+                organization_id="64",
+                organization_name="Best Resorts Hotels",
+                timezone="UTC",
+                timezone_assumed=True,
+            ),
         ],
         meters=[
             Meter(
@@ -39,13 +51,73 @@ def registry_with_hierarchy(tmp_path):
                 interval_minutes=5,
                 timezone="UTC",
                 timezone_assumed=True,
-            )
+            ),
+            Meter(
+                id="752",
+                name="Beta Main",
+                site_id="107",
+                site_name="Beta Resort & Spa",
+                organization_id="64",
+                organization_name="Best Resorts Hotels",
+                measurement_type="electricity",
+                unit="W",
+                reading_type="Interval",
+                interval_minutes=15,
+                timezone="UTC",
+                timezone_assumed=True,
+            ),
+            Meter(
+                id="6385",
+                name="HDD Food corp",
+                site_id="106",
+                site_name="Organic Farm",
+                organization_id="63",
+                organization_name="Food Corp.",
+                measurement_type="numeric_value",
+                unit="degree_day",
+                reading_type="Interval",
+                interval_minutes=1440,
+                timezone="UTC",
+                timezone_assumed=True,
+            ),
         ],
         discovered_at="2026-07-29T00:00:00+00:00",
     )
     cache = EnergyCache(tmp_path)
     save_hierarchy(hierarchy, cache.hierarchy_path)
     return ToolRegistry(EnergyTools(cache))
+
+
+def registry_with_recent_data(tmp_path):
+    registry = registry_with_hierarchy(tmp_path)
+    cache = registry.tools.cache
+    periods = 61 * 24 * 4
+    cache.write_meter(
+        "751",
+        make_energy_frame(
+            start="2026-05-01T00:00:00Z",
+            periods=periods,
+            meter_id="751",
+            site_id="106",
+            site_name="Organic Farm",
+            organization_id="63",
+            organization_name="Food Corp.",
+        ),
+    )
+    cache.write_meter(
+        "752",
+        make_energy_frame(
+            start="2026-05-01T00:00:00Z",
+            periods=periods,
+            meter_id="752",
+            meter_name="Beta Main",
+            site_id="107",
+            site_name="Beta Resort & Spa",
+            organization_id="64",
+            organization_name="Best Resorts Hotels",
+        ),
+    )
+    return registry
 
 
 def test_deterministic_peak_capability_is_in_scope(tmp_path):
@@ -112,7 +184,7 @@ def test_peak_direct_plan_resolves_alias_and_period(tmp_path):
         "When did Food Corp. reach peak demand in June 2026?",
         decision,
         registry,
-        today=__import__("datetime").date(2026, 7, 29),
+        today=date(2026, 7, 29),
     )
     assert plan is not None
     assert plan.tool_name == "get_peak_demand"
@@ -123,3 +195,47 @@ def test_peak_direct_plan_resolves_alias_and_period(tmp_path):
         "start_date": "2026-06-01",
         "end_date": "2026-07-01",
     }
+
+
+def test_periodless_baseload_uses_latest_closed_month_and_site_alias(tmp_path):
+    registry = registry_with_recent_data(tmp_path)
+    question = "What is the baseload of Beta Resort & Spa?"
+    decision = ScopeGuard(registry).classify(question)
+    plan = direct_tool_plan(
+        question,
+        decision,
+        registry,
+        today=date(2026, 7, 29),
+    )
+    assert plan is not None
+    assert plan.tool_name == "estimate_baseload"
+    assert plan.arguments["site"] == "107"
+    assert plan.arguments["start_date"] == "2026-06-01"
+    assert plan.arguments["end_date"] == "2026-07-01"
+
+
+def test_typo_entity_and_periodless_ranking_route_deterministically(tmp_path):
+    registry = registry_with_recent_data(tmp_path)
+    baseload_question = "what is the baseload of food crop"
+    baseload_decision = ScopeGuard(registry).classify(baseload_question)
+    baseload = direct_tool_plan(
+        baseload_question,
+        baseload_decision,
+        registry,
+        today=date(2026, 7, 29),
+    )
+    assert baseload is not None
+    assert baseload.arguments["organization"] == "63"
+
+    ranking_question = "rank sites"
+    ranking_decision = ScopeGuard(registry).classify(ranking_question)
+    ranking = direct_tool_plan(
+        ranking_question,
+        ranking_decision,
+        registry,
+        today=date(2026, 7, 29),
+    )
+    assert ranking is not None
+    assert ranking.tool_name == "rank_sites"
+    assert ranking.arguments["start_date"] == "2026-06-01"
+    assert ranking.arguments["end_date"] == "2026-07-01"

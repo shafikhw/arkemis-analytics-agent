@@ -15,7 +15,7 @@ validation, and fallback renderers with a scripted model. It persists no answer 
 
 | Metric | Result |
 |---|---:|
-| Cases | 54 |
+| Cases | 58 |
 | Peak regression | 10/10 |
 | Tool-selection accuracy | 100% |
 | Tool-argument accuracy | 100% |
@@ -26,14 +26,15 @@ validation, and fallback renderers with a scripted model. It persists no answer 
 | Unsupported-energy handling | 100% |
 | Raw-dataset exclusion | 100% |
 | Unhandled exceptions | 0 |
-| Average latency | 1.006 s |
-| Average mocked tokens/query | 702.963 |
-| Total mocked estimated cost | $0.11315 |
+| Average latency | 2.340 s |
+| Average mocked tokens/query | 726.207 |
+| Total mocked estimated cost | $0.12555 |
 
 The corpus includes the five assessment examples, 10 supported paraphrases, 10 clearly
 unrelated/prompt-injection requests, five unsupported energy requests, ambiguous,
 missing-data, malformed-argument, tool-empty, API-error, multi-tool, and five multi-turn
-follow-up sequences.
+follow-up sequences. It also includes the exact periodless site-ranking, Beta Resort
+baseload, typo-preserving Beta Resort baseload, and `food crop` alias regressions.
 
 ## Controlled live GPT-5.6 Terra evaluation
 
@@ -78,12 +79,24 @@ After deterministic complete-period routing:
 - two deterministic fallbacks
 - cost: `$0.1236875`
 
+### In-scope query and presentation follow-up
+
+After a larger cache refresh exposed fuzzy meter matching, the expanded mocked suite
+initially selected the non-energy `HDD Food corp` metadata meter for questions naming
+Food Corp. That failed run was retained. Fuzzy matching is now limited to organizations
+and sites; meters require an exact name or stable ID.
+
+- expanded mocked suite after correction: 58/58;
+- exact new live regressions: 4/4 answered, zero fallbacks/refusals, cost `$0.0603125`;
+- full assessment live rerun: 5/5 answered, zero refusals, cost `$0.1141625`.
+
 ### Total live-evaluation cost
 
-`$0.92988175`
+`$1.10435675`
 
-This total includes both full runs, the one-call diagnosis, and the affected-case rerun.
-Failures were retained and diagnosed rather than omitted.
+This total includes both original full runs, the one-call diagnosis, both assessment
+reruns, and the four new exact-query regressions. Failures were retained and diagnosed
+rather than omitted.
 
 ## Targets
 

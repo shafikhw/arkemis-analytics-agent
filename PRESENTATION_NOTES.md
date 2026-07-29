@@ -85,9 +85,10 @@ needed.
 ### 9:15-10:00 - Close on production path
 
 Show the model, service tier, input/cached/cache-write/output tokens, estimated cost,
-pricing source, and pricing date. Summarize: topology metadata, timezone enrichment,
-contextual denominators, DuckDB, structured final provenance, golden datasets, and
-consultant-review monitoring.
+and pricing date. Keep the configured pricing source in internal configuration and
+compliance evidence rather than repeating its URL after each answer. Summarize:
+topology metadata, timezone enrichment, contextual denominators, DuckDB, structured
+final provenance, golden datasets, and consultant-review monitoring.
 
 ## Five-minute deliberately weak example
 

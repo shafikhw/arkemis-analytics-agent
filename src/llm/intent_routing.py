@@ -6,6 +6,7 @@ import calendar
 import re
 from dataclasses import dataclass
 from datetime import date, timedelta
+from difflib import SequenceMatcher
 from typing import Any, Dict, Mapping, Optional, Sequence
 
 from src.data.discovery import normalize_name
@@ -92,12 +93,23 @@ def _single_tool_plan(
         return None
 
     entities = _resolve_entities(combined, registry)
-    period = _parse_period(combined, today)
     filters = {
         "organization": entities.get("organization"),
         "site": entities.get("site"),
         "meter": entities.get("meter"),
     }
+    period = _parse_period(combined, today)
+    if period is None and tool_name in {
+        "get_consumption_summary",
+        "estimate_baseload",
+        "get_peak_demand",
+        "calculate_load_factor",
+        "compare_weekday_weekend",
+        "rank_sites",
+        "detect_anomalies",
+        "get_load_profile",
+    }:
+        period = _latest_closed_month_for_filters(registry, filters)
 
     if tool_name == "get_data_quality":
         arguments: Dict[str, Any] = {
@@ -306,6 +318,34 @@ def _latest_common_complete_month(
     return start, end
 
 
+def _latest_closed_month_for_filters(
+    registry: ToolRegistry,
+    filters: Mapping[str, Optional[str]],
+) -> Optional[tuple[date, date]]:
+    try:
+        data = registry.tools.cache.read_energy(
+            organization=filters.get("organization"),
+            site=filters.get("site"),
+            meter=filters.get("meter"),
+        )
+    except (AttributeError, OSError, ValueError):
+        return None
+    dates = _all_local_dates(data)
+    if not dates:
+        return None
+    earliest = min(dates)
+    latest = max(dates)
+    candidate = latest.replace(day=1)
+    if latest < _next_month(candidate) - timedelta(days=1):
+        candidate = (candidate - timedelta(days=1)).replace(day=1)
+    for _ in range(24):
+        end = _next_month(candidate)
+        if candidate >= earliest and end - timedelta(days=1) <= latest:
+            return candidate, end
+        candidate = (candidate - timedelta(days=1)).replace(day=1)
+    return None
+
+
 def _latest_local_date(data: Any) -> Optional[date]:
     dates = _all_local_dates(data)
     return max(dates) if dates else None
@@ -368,6 +408,11 @@ def _resolve_entities(text: str, registry: ToolRegistry) -> Dict[str, Optional[s
                 candidates.append(entity.id)
         if len(set(candidates)) == 1:
             found[kind] = candidates[0]
+        elif not candidates and kind != "meter":
+            found[kind] = _fuzzy_entity_mention(
+                normalized_text.strip(),
+                collection,
+            )
     if found["organization"] is None:
         if " food corp " in normalized_text:
             found["organization"] = registry.tools.cache.resolve_entity_ids(
@@ -378,6 +423,33 @@ def _resolve_entities(text: str, registry: ToolRegistry) -> Dict[str, Optional[s
                 "organization", "Best Resorts Hotel"
             )[0]
     return found
+
+
+def _fuzzy_entity_mention(text: str, collection: Sequence[Any]) -> Optional[str]:
+    words = text.split()
+    scored: list[tuple[float, str]] = []
+    for entity in collection:
+        entity_text = normalize_name(entity.name)
+        entity_words = entity_text.split()
+        if not entity_words or len(words) < len(entity_words):
+            continue
+        window_size = len(entity_words)
+        score = max(
+            SequenceMatcher(
+                None,
+                " ".join(words[index : index + window_size]),
+                entity_text,
+            ).ratio()
+            for index in range(len(words) - window_size + 1)
+        )
+        if score >= 0.86:
+            scored.append((score, str(entity.id)))
+    scored.sort(reverse=True)
+    if not scored:
+        return None
+    if len(scored) > 1 and scored[0][0] - scored[1][0] < 0.05:
+        return None
+    return scored[0][1]
 
 
 def _parse_period(text: str, today: date) -> Optional[tuple[date, date]]:

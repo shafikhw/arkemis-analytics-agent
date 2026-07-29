@@ -33,7 +33,7 @@ this implementation pass. Status reflects executed evidence, not compile-only cl
 | 7. Wattics and LLM API errors | Implemented | `src/api/wattics_client.py`, `src/data/sync_manager.py`, `src/llm/orchestrator.py` | API mocks, stale-cache failure, synthesis-error fallback | Repeated upstream outage leaves an explicitly stale cache |
 | 7. One year x 40 meters architecture | Implemented by design | Per-meter Parquet, 90-day windows, vectorized analytics, bounded model outputs | `tests/test_scalability.py` aggregates a full 35,040-row meter-year and verifies the 1,401,600-interval portfolio target | Larger deployments should use DuckDB/partition pruning instead of in-memory Pandas concatenation |
 | 7. Token/cost accounting bonus | Implemented | `src/llm/usage_tracking.py`, `src/config.py`, UI | Exact `$0.030255` regression; live cost reports | Regional/data-residency uplifts are not applied unless configured |
-| 7. Test questions bonus | Implemented | `evals/evaluation_cases.json`, `docs/EVALUATION_QUESTIONS.md` | 54-case mocked suite; controlled live suite | Live model calls are deliberately opt-in and billable |
+| 7. Test questions bonus | Implemented | `evals/evaluation_cases.json`, `docs/EVALUATION_QUESTIONS.md` | 58-case mocked suite; exact-query and assessment controlled live reruns | Live model calls are deliberately opt-in and billable |
 | 8. Repository/readme/demonstration material | Implemented | `README.md`, `PRESENTATION_NOTES.md`, this review | Formatting/lint/type/test/eval/smoke commands executed | The supplied workspace had no `.git` directory; no repository publication was requested |
 
 ## Additional verification checklist
@@ -45,8 +45,8 @@ this implementation pass. Status reflects executed evidence, not compile-only cl
 | Atomic writes and previous-cache preservation | Implemented | Temp-file + `os.replace`; failure tests | Filesystem must support atomic replace within the cache volume |
 | Concurrent refresh protection | Implemented | `FileSyncLock`; simultaneous-active, dead-owner recovery, and stale-lock tests; successful live locked refresh | Remote/unreadable locks use the configurable age threshold |
 | Cache status/freshness/failed meters in UI | Implemented | Rendered-browser verification of four status metrics, captions, stale warning, and manual refresh | Streamlit refresh is synchronous but bounded |
-| Answer data-current timestamp and stale/fresh label | Implemented | `latest_cached_observation`, `cache_freshness` UI metadata | It is cache-wide, not a per-answer minimum across selected meters |
-| Four exact scope states with confidence/reason | Implemented | `ScopeDecision` | Deterministic classifier intentionally prefers supported resolution |
+| Data-current timestamp and stale/fresh label | Implemented | `latest_cached_observation` and freshness in the dashboard status area | It is cache-wide, not a per-answer minimum across selected meters |
+| Four exact scope states with confidence/reason | Implemented | `ScopeDecision`; evaluation records | Internal decision state is intentionally not rendered to consultants |
 | Deterministic capability/entity/date/term checks | Implemented | `scope.py`, `intent_routing.py`, cache alias resolver | Not a general semantic ontology |
 | Contextual follow-ups | Implemented | History-aware scope and direct period/entity parsing; five sequences | Very long histories are limited to recent turns |
 | False-refusal prevention state machine | Implemented | One retry, no tool re-execution, deterministic fallback | Fallback wording is structured rather than stylistically rich |

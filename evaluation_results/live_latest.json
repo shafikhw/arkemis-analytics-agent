@@ -1,0 +1,292 @@
+{
+  "generated_at": "2026-07-29T16:57:42.022320+00:00",
+  "model": "gpt-5.6-terra",
+  "service_tier": "standard",
+  "pricing_source": "https://developers.openai.com/api/docs/pricing?latest-pricing=standard",
+  "answer_values_persisted": false,
+  "metrics": {
+    "run_count": 15,
+    "peak_runs": 10,
+    "peak_successes": 10,
+    "answer_success_rate": 0.9333333333333333,
+    "false_refusal_count": 0,
+    "fallback_usage_count": 4,
+    "average_latency_seconds": 11.566667826666768,
+    "total_tokens": 75157,
+    "total_estimated_cost_usd": 0.27813075
+  },
+  "records": [
+    {
+      "run": 1,
+      "case": "peak_regression",
+      "status": "answered",
+      "scope": "in_scope",
+      "tools": [
+        "get_peak_demand"
+      ],
+      "tool_statuses": [
+        "success"
+      ],
+      "grounding_status": "passed_after_retry",
+      "fallback_used": false,
+      "error": null,
+      "latency_seconds": 13.008333799996763,
+      "tokens": 2879,
+      "estimated_cost_usd": 0.0170975
+    },
+    {
+      "run": 2,
+      "case": "peak_regression",
+      "status": "answered",
+      "scope": "in_scope",
+      "tools": [
+        "get_peak_demand"
+      ],
+      "tool_statuses": [
+        "success"
+      ],
+      "grounding_status": "passed_after_retry",
+      "fallback_used": false,
+      "error": null,
+      "latency_seconds": 9.709163600000466,
+      "tokens": 2756,
+      "estimated_cost_usd": 0.0152525
+    },
+    {
+      "run": 3,
+      "case": "peak_regression",
+      "status": "answered",
+      "scope": "in_scope",
+      "tools": [
+        "get_peak_demand"
+      ],
+      "tool_statuses": [
+        "success"
+      ],
+      "grounding_status": "deterministic_fallback",
+      "fallback_used": true,
+      "error": "synthesis_validation_failed_fallback_used",
+      "latency_seconds": 13.742962000000261,
+      "tokens": 2917,
+      "estimated_cost_usd": 0.017655
+    },
+    {
+      "run": 4,
+      "case": "peak_regression",
+      "status": "answered",
+      "scope": "in_scope",
+      "tools": [
+        "get_peak_demand"
+      ],
+      "tool_statuses": [
+        "success"
+      ],
+      "grounding_status": "passed",
+      "fallback_used": false,
+      "error": null,
+      "latency_seconds": 4.0029106000001775,
+      "tokens": 1380,
+      "estimated_cost_usd": 0.0078125
+    },
+    {
+      "run": 5,
+      "case": "peak_regression",
+      "status": "answered",
+      "scope": "in_scope",
+      "tools": [
+        "get_peak_demand"
+      ],
+      "tool_statuses": [
+        "success"
+      ],
+      "grounding_status": "passed",
+      "fallback_used": false,
+      "error": null,
+      "latency_seconds": 4.3941153999985545,
+      "tokens": 1467,
+      "estimated_cost_usd": 0.0091175
+    },
+    {
+      "run": 6,
+      "case": "peak_regression",
+      "status": "answered",
+      "scope": "in_scope",
+      "tools": [
+        "get_peak_demand"
+      ],
+      "tool_statuses": [
+        "success"
+      ],
+      "grounding_status": "passed_after_retry",
+      "fallback_used": false,
+      "error": null,
+      "latency_seconds": 9.247864600001776,
+      "tokens": 2857,
+      "estimated_cost_usd": 0.0167175
+    },
+    {
+      "run": 7,
+      "case": "peak_regression",
+      "status": "answered",
+      "scope": "in_scope",
+      "tools": [
+        "get_peak_demand"
+      ],
+      "tool_statuses": [
+        "success"
+      ],
+      "grounding_status": "deterministic_fallback",
+      "fallback_used": true,
+      "error": "synthesis_validation_failed_fallback_used",
+      "latency_seconds": 7.97365229999923,
+      "tokens": 2815,
+      "estimated_cost_usd": 0.0161875
+    },
+    {
+      "run": 8,
+      "case": "peak_regression",
+      "status": "answered",
+      "scope": "in_scope",
+      "tools": [
+        "get_peak_demand"
+      ],
+      "tool_statuses": [
+        "success"
+      ],
+      "grounding_status": "passed",
+      "fallback_used": false,
+      "error": null,
+      "latency_seconds": 9.185165700000653,
+      "tokens": 1414,
+      "estimated_cost_usd": 0.0083225
+    },
+    {
+      "run": 9,
+      "case": "peak_regression",
+      "status": "answered",
+      "scope": "in_scope",
+      "tools": [
+        "get_peak_demand"
+      ],
+      "tool_statuses": [
+        "success"
+      ],
+      "grounding_status": "passed",
+      "fallback_used": false,
+      "error": null,
+      "latency_seconds": 4.847216800000751,
+      "tokens": 1438,
+      "estimated_cost_usd": 0.0086825
+    },
+    {
+      "run": 10,
+      "case": "peak_regression",
+      "status": "answered",
+      "scope": "in_scope",
+      "tools": [
+        "get_peak_demand"
+      ],
+      "tool_statuses": [
+        "success"
+      ],
+      "grounding_status": "passed",
+      "fallback_used": false,
+      "error": null,
+      "latency_seconds": 7.659461100000044,
+      "tokens": 1434,
+      "estimated_cost_usd": 0.0086225
+    },
+    {
+      "run": 11,
+      "case": "assessment_question",
+      "status": "answered",
+      "scope": "in_scope",
+      "tools": [
+        "get_consumption_summary"
+      ],
+      "tool_statuses": [
+        "success"
+      ],
+      "grounding_status": "passed_after_retry",
+      "fallback_used": false,
+      "error": null,
+      "latency_seconds": 8.054361599999538,
+      "tokens": 2958,
+      "estimated_cost_usd": 0.016845
+    },
+    {
+      "run": 12,
+      "case": "assessment_question",
+      "status": "data_unavailable",
+      "scope": "in_scope",
+      "tools": [
+        "compare_periods"
+      ],
+      "tool_statuses": [
+        "success"
+      ],
+      "grounding_status": "no_factual_result",
+      "fallback_used": false,
+      "error": null,
+      "latency_seconds": 6.978737900000851,
+      "tokens": 5958,
+      "estimated_cost_usd": 0.0064925
+    },
+    {
+      "run": 13,
+      "case": "assessment_question",
+      "status": "answered",
+      "scope": "in_scope",
+      "tools": [
+        "detect_anomalies"
+      ],
+      "tool_statuses": [
+        "success"
+      ],
+      "grounding_status": "passed",
+      "fallback_used": false,
+      "error": null,
+      "latency_seconds": 15.611861000001227,
+      "tokens": 19703,
+      "estimated_cost_usd": 0.0592075
+    },
+    {
+      "run": 14,
+      "case": "assessment_question",
+      "status": "answered",
+      "scope": "in_scope",
+      "tools": [
+        "compare_weekday_weekend",
+        "list_organizations"
+      ],
+      "tool_statuses": [
+        "success",
+        "success"
+      ],
+      "grounding_status": "deterministic_fallback",
+      "fallback_used": true,
+      "error": "synthesis_validation_failed_fallback_used",
+      "latency_seconds": 17.010810100000526,
+      "tokens": 11655,
+      "estimated_cost_usd": 0.02421375
+    },
+    {
+      "run": 15,
+      "case": "assessment_question",
+      "status": "answered",
+      "scope": "in_scope",
+      "tools": [
+        "estimate_baseload"
+      ],
+      "tool_statuses": [
+        "success"
+      ],
+      "grounding_status": "deterministic_fallback",
+      "fallback_used": true,
+      "error": "synthesis_validation_failed_fallback_used",
+      "latency_seconds": 42.073400900000706,
+      "tokens": 13526,
+      "estimated_cost_usd": 0.0459045
+    }
+  ]
+}

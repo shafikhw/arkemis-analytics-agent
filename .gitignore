@@ -1,0 +1,43 @@
+# Credentials and local configuration
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+
+# Private/source data and synchronization artifacts
+data/raw/**
+data/processed/**
+data/metadata/**
+!data/raw/.gitkeep
+!data/processed/.gitkeep
+!data/metadata/.gitkeep
+*.parquet
+*.duckdb
+*.db
+
+# Logs and reports that may contain operational metadata
+*.log
+logs/
+htmlcov/
+.coverage
+coverage.xml
+
+# Python
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.venv/
+venv/
+
+# Editors and OS
+.idea/
+.vscode/
+.DS_Store
+Thumbs.db
+
+# Assessment source contains a credential and must remain local
+AI Developer - Technical Assessment.pdf
+

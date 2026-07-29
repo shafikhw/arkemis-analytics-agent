@@ -1,0 +1,9 @@
+numpy>=1.24,<3
+openai>=1.68,<3
+pandas>=2.0,<3
+pyarrow>=14,<22
+python-dotenv>=1.0,<2
+requests>=2.31,<3
+streamlit>=1.40,<2
+pytest>=8,<9
+

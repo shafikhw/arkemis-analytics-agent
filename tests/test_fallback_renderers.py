@@ -4,6 +4,10 @@ from src.llm.fallback_renderers import RENDERERS, render_fallback
 from src.llm.result_validation import ValidatedToolResult
 
 REQUIRED_RENDERERS = {
+    "list_organizations",
+    "list_sites",
+    "list_meters",
+    "get_data_availability",
     "get_consumption_summary",
     "compare_periods",
     "compare_entities",
@@ -95,3 +99,62 @@ def test_multi_period_fallback_identifies_the_larger_increase():
     )
     assert "Food Corp.: -6.034% (-1,166.075 kWh)" in answer
     assert "163.659 kWh" in answer
+
+
+def test_site_and_meter_fallback_lists_entity_arrays_instead_of_only_timestamp():
+    results = [
+        ValidatedToolResult(
+            name="list_sites",
+            arguments={"organization": None},
+            result={
+                "status": "ok",
+                "sites": [
+                    {
+                        "id": "106",
+                        "name": "Organic Farm",
+                        "organization_name": "Food Corp.",
+                        "timezone": "UTC",
+                        "timezone_assumed": True,
+                    },
+                    {
+                        "id": "108",
+                        "name": "Beta Resort & Spa",
+                        "organization_name": "Best Resorts Hotels",
+                        "timezone": "UTC",
+                        "timezone_assumed": True,
+                    },
+                ],
+                "discovered_at": "2026-07-29T20:23:37+00:00",
+            },
+        ),
+        ValidatedToolResult(
+            name="list_meters",
+            arguments={"organization": None, "site": None},
+            result={
+                "status": "ok",
+                "meters": [
+                    {
+                        "id": "751",
+                        "name": "Effluent Area",
+                        "site_name": "Organic Farm",
+                        "organization_name": "Food Corp.",
+                        "measurement_type": "electricity",
+                        "unit": "Watt",
+                        "reading_type": "cum",
+                        "interval_minutes": 5,
+                    }
+                ],
+                "discovered_at": "2026-07-29T20:23:37+00:00",
+            },
+        ),
+    ]
+
+    answer = render_fallback(results)
+
+    assert "Available sites:" in answer
+    assert "Organic Farm - Food Corp." in answer
+    assert "Beta Resort & Spa - Best Resorts Hotels" in answer
+    assert "Available meters:" in answer
+    assert "Effluent Area" in answer
+    assert "interval: 5 minutes" in answer
+    assert "### list_sites" not in answer

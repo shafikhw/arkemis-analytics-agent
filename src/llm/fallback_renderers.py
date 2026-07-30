@@ -10,6 +10,12 @@ from dateutil import parser as date_parser
 from src.llm.result_validation import ValidatedToolResult
 
 Renderer = Callable[[Mapping[str, Any], int], str]
+METADATA_RENDERERS = {
+    "list_organizations",
+    "list_sites",
+    "list_meters",
+    "get_data_availability",
+}
 
 
 def render_fallback(
@@ -26,6 +32,10 @@ def render_fallback(
         return "\n\n".join(messages) or "No factual result is available."
     if len(factual) > 1 and all(item.name == "compare_periods" for item in factual):
         return _render_multi_period_comparison(factual, decimal_places)
+    if len(factual) > 1 and all(item.name in METADATA_RENDERERS for item in factual):
+        return "\n\n".join(
+            RENDERERS[item.name](item.result, decimal_places) for item in factual
+        )
     rendered = []
     for item in factual:
         renderer = RENDERERS.get(item.name, _render_generic)
@@ -318,6 +328,93 @@ def _render_profile(result: Mapping[str, Any], places: int) -> str:
     )
 
 
+def _render_organizations(result: Mapping[str, Any], places: int) -> str:
+    rows = [
+        f"- {row.get('name') or 'Unnamed organization'} (ID: {row.get('id')})"
+        for row in result.get("organizations") or []
+    ]
+    return _join(
+        "Available organizations:",
+        "\n".join(rows),
+        _discovered_at(result),
+        _warnings(result),
+    )
+
+
+def _render_sites(result: Mapping[str, Any], places: int) -> str:
+    rows = []
+    for row in result.get("sites") or []:
+        timezone = row.get("timezone") or "timezone unavailable"
+        if row.get("timezone_assumed") is True:
+            timezone += " (assumed)"
+        rows.append(
+            f"- {row.get('name') or 'Unnamed site'} - "
+            f"{row.get('organization_name') or 'organization unavailable'} "
+            f"(site ID: {row.get('id')}; timezone: {timezone})"
+        )
+    return _join(
+        "Available sites:",
+        "\n".join(rows),
+        _discovered_at(result),
+        _warnings(result),
+    )
+
+
+def _render_meters(result: Mapping[str, Any], places: int) -> str:
+    grouped: dict[tuple[str, str], list[str]] = {}
+    for row in result.get("meters") or []:
+        site_name = str(row.get("site_name") or "Site unavailable")
+        organization_name = str(
+            row.get("organization_name") or "Organization unavailable"
+        )
+        details = [
+            f"meter ID: {row.get('id')}",
+            (
+                "type: "
+                + str(row.get("measurement_type") or "measurement type unavailable")
+            ),
+        ]
+        if row.get("unit"):
+            details.append(f"unit: {row.get('unit')}")
+        if row.get("reading_type"):
+            details.append(f"reading type: {row.get('reading_type')}")
+        if row.get("interval_minutes") is not None:
+            details.append(
+                f"interval: {_fmt(row.get('interval_minutes'), places)} minutes"
+            )
+        grouped.setdefault((organization_name, site_name), []).append(
+            f"- {row.get('name') or 'Unnamed meter'} ({'; '.join(details)})"
+        )
+    sections = []
+    for (organization_name, site_name), rows in grouped.items():
+        sections.append(f"{site_name} ({organization_name}):\n" + "\n".join(rows))
+    return _join(
+        "Available meters:",
+        "\n\n".join(sections),
+        _discovered_at(result),
+        _warnings(result),
+    )
+
+
+def _render_availability(result: Mapping[str, Any], places: int) -> str:
+    rows = []
+    for row in result.get("meters") or []:
+        rows.append(
+            f"- {row.get('meter_name') or row.get('meter_id')} - "
+            f"{row.get('site_name')} ({row.get('organization_name')}): "
+            f"{_format_timestamp(row.get('start_timestamp_utc'))} through "
+            f"{_format_timestamp(row.get('end_timestamp_utc'))}; "
+            f"{_fmt(row.get('observation_count'), places)} observations; "
+            f"{_fmt(row.get('interval_minutes'), places)}-minute interval; "
+            f"timezone {row.get('timezone') or 'unavailable'}."
+        )
+    return _join(
+        "Cached energy-data availability by meter:",
+        "\n".join(rows),
+        _warnings(result),
+    )
+
+
 def _render_generic(result: Mapping[str, Any], places: int) -> str:
     rows = []
     for key, value in result.items():
@@ -329,6 +426,10 @@ def _render_generic(result: Mapping[str, Any], places: int) -> str:
 
 
 RENDERERS: Dict[str, Renderer] = {
+    "list_organizations": _render_organizations,
+    "list_sites": _render_sites,
+    "list_meters": _render_meters,
+    "get_data_availability": _render_availability,
     "get_consumption_summary": _render_consumption,
     "compare_periods": _render_period_comparison,
     "compare_entities": _render_entity_comparison,
@@ -341,6 +442,11 @@ RENDERERS: Dict[str, Renderer] = {
     "get_data_quality": _render_quality,
     "get_load_profile": _render_profile,
 }
+
+
+def _discovered_at(result: Mapping[str, Any]) -> str:
+    value = result.get("discovered_at")
+    return f"Metadata last discovered: {_format_timestamp(value)}." if value else ""
 
 
 def _period(result: Mapping[str, Any]) -> str:

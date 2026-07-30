@@ -3,6 +3,7 @@ from __future__ import annotations
 import json
 from types import SimpleNamespace
 
+from src.data.schemas import Hierarchy, Organization, Site
 from src.llm.orchestrator import EnergyAssistant
 
 
@@ -263,3 +264,61 @@ def test_malformed_arguments_become_tool_error():
     result = assistant.ask("What was consumption?")
     assert result.trace[0].status == "error"
     assert "JSONDecodeError" in result.trace[0].result_summary["error_type"]
+
+
+def test_metadata_listing_is_rendered_deterministically_without_model_synthesis():
+    hierarchy = Hierarchy(
+        organizations=[Organization(id="63", name="Food Corp.")],
+        sites=[
+            Site(
+                id="106",
+                name="Organic Farm",
+                organization_id="63",
+                organization_name="Food Corp.",
+                timezone="UTC",
+                timezone_assumed=True,
+            )
+        ],
+        discovered_at="2026-07-29T20:23:37+00:00",
+    )
+
+    class MetadataRegistry:
+        schemas = [{"type": "function", "name": "list_sites", "parameters": {}}]
+        tools = SimpleNamespace(cache=SimpleNamespace(load_hierarchy=lambda: hierarchy))
+
+        def prepare(self, name, arguments):
+            assert name == "list_sites"
+            return dict(arguments)
+
+        def execute(self, name, arguments):
+            assert name == "list_sites"
+            return {
+                "status": "ok",
+                "sites": [
+                    {
+                        "id": "106",
+                        "name": "Organic Farm",
+                        "organization_id": "63",
+                        "organization_name": "Food Corp.",
+                        "timezone": "UTC",
+                        "timezone_assumed": True,
+                    }
+                ],
+                "discovered_at": hierarchy.discovered_at,
+            }
+
+    fake_responses = FakeResponses([])
+    assistant = EnergyAssistant(
+        SimpleNamespace(responses=fake_responses),
+        model="test-model",
+        registry=MetadataRegistry(),
+    )
+
+    result = assistant.ask("List sites")
+
+    assert result.status == "answered"
+    assert result.answer.startswith("Available sites:")
+    assert "Organic Farm - Food Corp." in result.answer
+    assert result.grounding_status == "deterministic_render"
+    assert result.fallback_used is False
+    assert fake_responses.calls == []

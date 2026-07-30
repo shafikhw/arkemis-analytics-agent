@@ -8,7 +8,7 @@ this implementation pass. Status reflects executed evidence, not compile-only cl
 | Assessment requirement | Implementation status | Relevant files | Tests or evidence | Known limitations |
 |---|---|---|---|---|
 | 1. Data extraction across both organizations | Implemented | `src/api/wattics_client.py`, `src/data/discovery.py`, `src/data/extraction.py`, `scripts/sync_data.py` | `test_wattics_client.py`, `test_discovery.py`, `test_extraction.py`; live hierarchy/cache inspected | API source currently enables documented active power; non-electric meters remain metadata-only |
-| 1. Dynamic site/meter discovery | Implemented | `src/data/discovery.py`, `src/data/schemas.py` | Discovery tests; cached hierarchy contains discovered IDs/names | Similar organization name is explicitly reported; no hidden hardcoded IDs |
+| 1. Dynamic site/meter discovery | Implemented | `src/data/discovery.py`, `src/data/schemas.py`, `src/llm/intent_routing.py`, `src/llm/fallback_renderers.py` | Discovery tests; deterministic UI regressions enumerate all cached organization/site/meter names | Similar organization name is explicitly reported; no hidden hardcoded IDs |
 | 1. Local caching; no API per question | Implemented | `src/data/cache.py` | Cache/tool tests; queries read Parquet only | Per-query selected partitions are loaded into memory |
 | 2. Missing intervals, gaps, duplicates | Implemented | `src/data/cleaning.py`, `src/data/quality.py`, `src/data/extraction.py` | Cleaning, quality, duplicate-sync, interrupted-sync tests | Incremental boundary sync does not repair an old internal gap automatically; targeted full refresh does |
 | 2. Timestamp/timezone consistency | Implemented | `src/data/extraction.py`, `src/analytics/common.py` | Aggregation, analytics, quality tests | Source timezone is absent for some sites; configured IANA timezone is visibly labeled as assumed |
@@ -33,7 +33,7 @@ this implementation pass. Status reflects executed evidence, not compile-only cl
 | 7. Wattics and LLM API errors | Implemented | `src/api/wattics_client.py`, `src/data/sync_manager.py`, `src/llm/orchestrator.py` | API mocks, stale-cache failure, synthesis-error fallback | Repeated upstream outage leaves an explicitly stale cache |
 | 7. One year x 40 meters architecture | Implemented by design | Per-meter Parquet, 90-day windows, vectorized analytics, bounded model outputs | `tests/test_scalability.py` aggregates a full 35,040-row meter-year and verifies the 1,401,600-interval portfolio target | Larger deployments should use DuckDB/partition pruning instead of in-memory Pandas concatenation |
 | 7. Token/cost accounting bonus | Implemented | `src/llm/usage_tracking.py`, `src/config.py`, UI | Exact `$0.030255` regression; live cost reports | Regional/data-residency uplifts are not applied unless configured |
-| 7. Test questions bonus | Implemented | `evals/evaluation_cases.json`, `docs/EVALUATION_QUESTIONS.md` | 58-case mocked suite; exact-query and assessment controlled live reruns | Live model calls are deliberately opt-in and billable |
+| 7. Test questions bonus | Implemented | `evals/evaluation_cases.json`, `docs/EVALUATION_QUESTIONS.md` | 99-turn mocked suite; exact-query and assessment controlled live reruns | Live model calls are deliberately opt-in and billable |
 | 8. Repository/readme/demonstration material | Implemented | `README.md`, `PRESENTATION_NOTES.md`, this review | Formatting/lint/type/test/eval/smoke commands executed | The supplied workspace had no `.git` directory; no repository publication was requested |
 
 ## Additional verification checklist
@@ -48,9 +48,9 @@ this implementation pass. Status reflects executed evidence, not compile-only cl
 | Data-current timestamp and stale/fresh label | Implemented | `latest_cached_observation` and freshness in the dashboard status area | It is cache-wide, not a per-answer minimum across selected meters |
 | Four exact scope states with confidence/reason | Implemented | `ScopeDecision`; evaluation records | Internal decision state is intentionally not rendered to consultants |
 | Deterministic capability/entity/date/term checks | Implemented | `scope.py`, `intent_routing.py`, cache alias resolver | Not a general semantic ontology |
-| Contextual follow-ups | Implemented | History-aware scope and direct period/entity parsing; five sequences | Very long histories are limited to recent turns |
+| Contextual follow-ups | Implemented | History-aware scope and direct period/entity parsing; nine sequences including standalone-query context isolation | Very long histories are limited to recent turns |
 | False-refusal prevention state machine | Implemented | One retry, no tool re-execution, deterministic fallback | Fallback wording is structured rather than stylistically rich |
-| Primary-tool fallback renderers | Implemented | All 11 required names registered and tested | Unknown extension tools receive a generic scalar summary |
+| Primary-tool fallback renderers | Implemented | All 11 required analytics names plus four metadata/availability names registered and tested | Unknown extension tools receive a generic scalar summary |
 | Structured final answer | Implemented | Strict `AnswerEnvelope` JSON Schema | Falls back safely if a provider/model cannot honor the schema |
 | Semantic timestamps/rounding/percentages | Implemented | Validator regressions and live diagnosis | Tolerances are configurable and should be monitored |
 | Fact-to-tool-field provenance | Implemented | `source_tool`, JSONPath resolution, provenance records | Non-numeric text uses exact/contained source text matching |

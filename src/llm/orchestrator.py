@@ -36,6 +36,13 @@ from src.llm.usage_tracking import (
 )
 from src.tools.registry import ToolRegistry
 
+DETERMINISTIC_METADATA_TOOLS = {
+    "list_organizations",
+    "list_sites",
+    "list_meters",
+    "get_data_availability",
+}
+
 
 @dataclass
 class ToolTraceEntry:
@@ -381,6 +388,22 @@ class EnergyAssistant:
                 scope=decision.as_dict(),
                 grounding_status="no_factual_result",
                 error=None if empty else "tool_execution_failed",
+            )
+        factual = [item for item in results if item.status == "ok"]
+        if factual and all(
+            item.name in DETERMINISTIC_METADATA_TOOLS for item in factual
+        ):
+            return AssistantResult(
+                answer=render_fallback(
+                    factual,
+                    decimal_places=self.answer_decimal_places,
+                ),
+                status="answered",
+                trace=trace,
+                usage=usage,
+                scope=decision.as_dict(),
+                grounding_status="deterministic_render",
+                fallback_used=False,
             )
         response = self._synthesis_call(
             question,

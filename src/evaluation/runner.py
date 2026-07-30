@@ -123,13 +123,31 @@ def _run_case(
         else _arguments_correct(case.get("tool_calls") or [], result.trace, registry)
     )
     status_correct = result.status == expected_status
+    required_fragments = [
+        str(value) for value in case.get("required_answer_fragments") or []
+    ]
+    forbidden_fragments = [
+        str(value) for value in case.get("forbidden_answer_fragments") or []
+    ]
+    answer_content_correct = all(
+        fragment.casefold() in result.answer.casefold()
+        for fragment in required_fragments
+    ) and not any(
+        fragment.casefold() in result.answer.casefold()
+        for fragment in forbidden_fragments
+    )
     safe_calls = _calls_exclude_raw_data(responses.calls)
     supported = case["expected_scope"] == "in_scope"
     numeric_pass = (
         not supported
         or result.status != "answered"
         or result.grounding_status
-        in {"passed", "passed_after_retry", "deterministic_fallback"}
+        in {
+            "passed",
+            "passed_after_retry",
+            "deterministic_fallback",
+            "deterministic_render",
+        }
     )
     return {
         "id": case["id"],
@@ -140,6 +158,7 @@ def _run_case(
         "expected_status": expected_status,
         "actual_status": result.status,
         "status_correct": status_correct,
+        "answer_content_correct": answer_content_correct,
         "expected_tools": expected_tools,
         "actual_tools": actual_tools,
         "tool_selection_correct": selection_correct,
@@ -296,6 +315,7 @@ def _aggregate(records: list[dict]) -> dict:
             "id": row["id"],
             "scope_correct": row["scope_correct"],
             "status_correct": row["status_correct"],
+            "answer_content_correct": row["answer_content_correct"],
             "tool_selection_correct": row["tool_selection_correct"],
             "tool_arguments_correct": row["tool_arguments_correct"],
             "numeric_provenance_pass": row["numeric_provenance_pass"],
@@ -306,6 +326,7 @@ def _aggregate(records: list[dict]) -> dict:
             (
                 row["scope_correct"],
                 row["status_correct"],
+                row["answer_content_correct"],
                 row["tool_selection_correct"],
                 row["tool_arguments_correct"],
                 row["numeric_provenance_pass"],
@@ -324,6 +345,9 @@ def _aggregate(records: list[dict]) -> dict:
         "answer_success_rate": _rate(
             row["actual_status"] in {"answered", "data_unavailable", "tool_error"}
             for row in supported
+        ),
+        "answer_content_accuracy": _rate(
+            row["answer_content_correct"] for row in records
         ),
         "numeric_grounding_pass_rate": _rate(
             row["numeric_provenance_pass"] for row in supported

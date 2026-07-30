@@ -70,7 +70,7 @@ complete cached month.
 - deterministic fallback regression: two invalid syntheses still return the one
   successful tool result and keep one tool trace;
 - exact peak question: 10/10 consecutive live successes;
-- mocked behavioral suite: 58/58 cases with zero false refusals and full numeric
+- mocked behavioral suite: 99/99 executed turns with zero false refusals and full numeric
   provenance;
 - final live rerun: 5/5 assessment questions answered after complete-period routing.
 

@@ -53,7 +53,10 @@ INTENT_PATTERNS: tuple[tuple[str, tuple[str, ...]], ...] = (
         (
             r"\btotal\s+(?:energy\s+)?consumption\b",
             r"\baverage\s+(?:energy\s+)?consumption\b",
+            r"\baverage\s+(?:electrical\s+)?demand\b",
             r"\bhow\s+much\s+(?:energy|electricity)\b",
+            r"\b(?:hourly|daily|weekly|monthly)\s+(?:energy\s+)?"
+            r"(?:consumption|usage|totals?)\b",
         ),
     ),
     (
@@ -83,6 +86,8 @@ INTENT_PATTERNS: tuple[tuple[str, tuple[str, ...]], ...] = (
             r"\bhow\s+complete\b",
             r"\bmissing\s+(?:data|intervals|readings)\b",
             r"\bdata\s+gaps?\b",
+            r"\bduplicate\s+(?:data|intervals|readings|records|rows)\b",
+            r"\btimezone\s+(?:quality|consistency|assumptions?)\b",
         ),
     ),
     (
@@ -98,9 +103,18 @@ INTENT_PATTERNS: tuple[tuple[str, tuple[str, ...]], ...] = (
         ),
     ),
     (
+        "compare_entities",
+        (
+            r"\bcompare\b.*\b(?:organi[sz]ations?|sites?)\b",
+            r"\bwhich\s+organi[sz]ation\b.*\b(?:more|less|higher|lower|larger|smaller)\b",
+            r"\bwhich\s+site\b.*\b(?:more|less|higher|lower)\b",
+        ),
+    ),
+    (
         "rank_sites",
         (
-            r"\brank(?:ing)?\s+(?:the\s+)?sites\b",
+            r"\brank(?:ed|ing)?\s+(?:the\s+)?sites\b",
+            r"\bsites?\b.*\brank(?:ed|ing)?\b",
             r"\bbest\s+and\s+worst\s+(?:sites|performers)\b",
             r"\bwhich\s+site\b.*\b(?:most|least|largest|smallest)\b",
         ),
@@ -110,6 +124,41 @@ INTENT_PATTERNS: tuple[tuple[str, tuple[str, ...]], ...] = (
         (
             r"\bload\s+profile\b",
             r"\b(?:hourly|daily|weekly|monthly)\s+profile\b",
+            r"\bconsumption\s+(?:pattern|shape)\b",
+        ),
+    ),
+    (
+        "get_data_availability",
+        (
+            r"\bdata\s+(?:availability|coverage|range)\b",
+            r"\b(?:earliest|latest)\s+(?:available\s+)?"
+            r"(?:reading|observation|timestamp|data)\b",
+            r"\bwhat\s+(?:date|time)\s+range\b.*\b(?:available|cached)\b",
+        ),
+    ),
+    (
+        "list_organizations",
+        (
+            r"\b(?:list|show)\s+(?:the\s+)?(?:available\s+)?"
+            r"organi[sz]ations?\b",
+            r"\bwhat\s+organi[sz]ations?\b.*\b(?:available|configured|included)\b",
+            r"\bwhich\s+organi[sz]ations?\b.*\b(?:available|configured|included)\b",
+        ),
+    ),
+    (
+        "list_sites",
+        (
+            r"\b(?:list|show)\s+(?:the\s+)?(?:available\s+)?sites?\b",
+            r"\bwhat\s+sites?\b.*\b(?:available|does|do|has|have|include)\b",
+            r"\bwhich\s+sites?\b.*\b(?:available|does|do|has|have|include)\b",
+        ),
+    ),
+    (
+        "list_meters",
+        (
+            r"\b(?:list|show)\s+(?:the\s+)?(?:available\s+)?meters?\b",
+            r"\bwhat\s+meters?\b.*\b(?:available|does|do|has|have|include)\b",
+            r"\bwhich\s+meters?\b.*\b(?:available|does|do|has|have|include)\b",
         ),
     ),
 )
@@ -372,9 +421,19 @@ class ScopeGuard:
 
 def match_intent(text: str) -> tuple[Optional[str], tuple[str, ...]]:
     lowered = text.casefold()
-    rank_match = re.search(r"\b(?:rank|ranking)\b.*\b(?:site|sites)\b", lowered)
+    rank_match = re.search(
+        r"\brank(?:ed|ing)?\b.*\bsites?\b"
+        r"|\bsites?\b.*\brank(?:ed|ing)?\b",
+        lowered,
+    )
     if rank_match:
         return "rank_sites", (rank_match.group(0),)
+    entity_comparison = re.search(
+        r"\bcompare\b.*\b(?:organi[sz]ations?|sites?)\b",
+        lowered,
+    )
+    if entity_comparison and "weekend" not in lowered:
+        return "compare_entities", (entity_comparison.group(0),)
     peak_match = re.search(
         r"\b(?:what|show|give|when|time|highest|maximum)\b.*\bpeak(?:\s+demand)?\b",
         lowered,
@@ -401,6 +460,7 @@ def _capability_tokens(name: str, description: str) -> tuple[str, ...]:
         "for",
         "use",
         "data",
+        "does",
     }
     values = re.findall(r"[a-z][a-z_ -]{2,}", name.casefold())
     values.extend(re.findall(r"\b[a-z]{4,}\b", description.casefold()))

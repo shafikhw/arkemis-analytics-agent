@@ -1,24 +1,25 @@
 {
-  "generated_at": "2026-07-29T20:45:27.771646+00:00",
+  "generated_at": "2026-07-29T21:56:30.538826+00:00",
   "mode": "mocked_llm_real_cache_and_tools",
   "metrics": {
-    "case_count": 58,
+    "case_count": 99,
     "tool_selection_accuracy": 1.0,
     "tool_argument_accuracy": 1.0,
     "answer_success_rate": 1.0,
+    "answer_content_accuracy": 1.0,
     "numeric_grounding_pass_rate": 1.0,
     "false_refusal_rate": 0.0,
     "out_of_scope_refusal_precision": 1.0,
     "unsupported_handling_accuracy": 1.0,
-    "deterministic_fallback_usage_rate": 0.9523809523809523,
+    "deterministic_fallback_usage_rate": 0.8313253012048193,
     "peak_regression_successes": 10,
     "peak_regression_runs": 10,
     "raw_dataset_exclusion_rate": 1.0,
     "unhandled_exception_count": 0,
-    "average_latency_seconds": 2.339919260344122,
-    "average_tokens_per_query": 726.2068965517242,
-    "average_estimated_cost_usd": 0.002164655172413793,
-    "total_estimated_cost_usd": 0.12555
+    "average_latency_seconds": 1.4699414898987566,
+    "average_tokens_per_query": 745.8585858585859,
+    "average_estimated_cost_usd": 0.002223232323232323,
+    "total_estimated_cost_usd": 0.2201
   },
   "failures": [],
   "cases": [
@@ -31,6 +32,7 @@
       "expected_status": "answered",
       "actual_status": "answered",
       "status_correct": true,
+      "answer_content_correct": true,
       "expected_tools": [
         "get_peak_demand"
       ],
@@ -42,7 +44,7 @@
       "grounding_status": "deterministic_fallback",
       "numeric_provenance_pass": true,
       "fallback_used": true,
-      "latency_seconds": 1.2257944000011776,
+      "latency_seconds": 1.2452044999954524,
       "tokens": 1040,
       "estimated_cost_usd": 0.0031,
       "raw_dataset_excluded": true,
@@ -57,6 +59,7 @@
       "expected_status": "answered",
       "actual_status": "answered",
       "status_correct": true,
+      "answer_content_correct": true,
       "expected_tools": [
         "get_peak_demand"
       ],
@@ -68,7 +71,7 @@
       "grounding_status": "deterministic_fallback",
       "numeric_provenance_pass": true,
       "fallback_used": true,
-      "latency_seconds": 1.7403015999952913,
+      "latency_seconds": 1.1731299999955809,
       "tokens": 1040,
       "estimated_cost_usd": 0.0031,
       "raw_dataset_excluded": true,
@@ -83,6 +86,7 @@
       "expected_status": "answered",
       "actual_status": "answered",
       "status_correct": true,
+      "answer_content_correct": true,
       "expected_tools": [
         "get_peak_demand"
       ],
@@ -94,7 +98,7 @@
       "grounding_status": "deterministic_fallback",
       "numeric_provenance_pass": true,
       "fallback_used": true,
-      "latency_seconds": 4.28225879999809,
+      "latency_seconds": 1.2427596999987145,
       "tokens": 1040,
       "estimated_cost_usd": 0.0031,
       "raw_dataset_excluded": true,
@@ -109,6 +113,7 @@
       "expected_status": "answered",
       "actual_status": "answered",
       "status_correct": true,
+      "answer_content_correct": true,
       "expected_tools": [
         "get_peak_demand"
       ],
@@ -120,7 +125,7 @@
       "grounding_status": "deterministic_fallback",
       "numeric_provenance_pass": true,
       "fallback_used": true,
-      "latency_seconds": 4.0437783999950625,
+      "latency_seconds": 1.1821841999990284,
       "tokens": 1040,
       "estimated_cost_usd": 0.0031,
       "raw_dataset_excluded": true,
@@ -135,6 +140,7 @@
       "expected_status": "answered",
       "actual_status": "answered",
       "status_correct": true,
+      "answer_content_correct": true,
       "expected_tools": [
         "get_peak_demand"
       ],
@@ -146,7 +152,7 @@
       "grounding_status": "deterministic_fallback",
       "numeric_provenance_pass": true,
       "fallback_used": true,
-      "latency_seconds": 3.9827468000003137,
+      "latency_seconds": 1.1710212999969372,
       "tokens": 1040,
       "estimated_cost_usd": 0.0031,
       "raw_dataset_excluded": true,
@@ -161,6 +167,7 @@
       "expected_status": "answered",
       "actual_status": "answered",
       "status_correct": true,
+      "answer_content_correct": true,
       "expected_tools": [
         "get_peak_demand"
       ],
@@ -172,7 +179,7 @@
       "grounding_status": "deterministic_fallback",
       "numeric_provenance_pass": true,
       "fallback_used": true,
-      "latency_seconds": 3.638187199998356,
+      "latency_seconds": 1.21291249999922,
       "tokens": 1040,
       "estimated_cost_usd": 0.0031,
       "raw_dataset_excluded": true,
@@ -187,6 +194,7 @@
       "expected_status": "answered",
       "actual_status": "answered",
       "status_correct": true,
+      "answer_content_correct": true,
       "expected_tools": [
         "get_peak_demand"
       ],
@@ -198,7 +206,7 @@
       "grounding_status": "deterministic_fallback",
       "numeric_provenance_pass": true,
       "fallback_used": true,
-      "latency_seconds": 3.8102818000043044,
+      "latency_seconds": 1.2431263999969815,
       "tokens": 1040,
       "estimated_cost_usd": 0.0031,
       "raw_dataset_excluded": true,
@@ -213,6 +221,7 @@
       "expected_status": "answered",
       "actual_status": "answered",
       "status_correct": true,
+      "answer_content_correct": true,
       "expected_tools": [
         "get_peak_demand"
       ],
@@ -224,7 +233,7 @@
       "grounding_status": "deterministic_fallback",
       "numeric_provenance_pass": true,
       "fallback_used": true,
-      "latency_seconds": 3.707151899994642,
+      "latency_seconds": 1.2251963000016985,
       "tokens": 1040,
       "estimated_cost_usd": 0.0031,
       "raw_dataset_excluded": true,
@@ -239,6 +248,7 @@
       "expected_status": "answered",
       "actual_status": "answered",
       "status_correct": true,
+      "answer_content_correct": true,
       "expected_tools": [
         "get_peak_demand"
       ],
@@ -250,7 +260,7 @@
       "grounding_status": "deterministic_fallback",
       "numeric_provenance_pass": true,
       "fallback_used": true,
-      "latency_seconds": 3.3849805999998352,
+      "latency_seconds": 1.1932667000000947,
       "tokens": 1040,
       "estimated_cost_usd": 0.0031,
       "raw_dataset_excluded": true,
@@ -265,6 +275,7 @@
       "expected_status": "answered",
       "actual_status": "answered",
       "status_correct": true,
+      "answer_content_correct": true,
       "expected_tools": [
         "get_peak_demand"
       ],
@@ -276,7 +287,7 @@
       "grounding_status": "deterministic_fallback",
       "numeric_provenance_pass": true,
       "fallback_used": true,
-      "latency_seconds": 3.5222292999969795,
+      "latency_seconds": 1.170416100001603,
       "tokens": 1040,
       "estimated_cost_usd": 0.0031,
       "raw_dataset_excluded": true,
@@ -291,6 +302,7 @@
       "expected_status": "answered",
       "actual_status": "answered",
       "status_correct": true,
+      "answer_content_correct": true,
       "expected_tools": [
         "get_consumption_summary"
       ],
@@ -302,9 +314,254 @@
       "grounding_status": "deterministic_fallback",
       "numeric_provenance_pass": true,
       "fallback_used": true,
-      "latency_seconds": 4.178725199999462,
+      "latency_seconds": 1.2189711000028183,
       "tokens": 1040,
       "estimated_cost_usd": 0.0031,
+      "raw_dataset_excluded": true,
+      "unhandled_exception": false
+    },
+    {
+      "id": "metadata_list_organizations",
+      "category": "metadata_discovery",
+      "expected_scope": "in_scope",
+      "actual_scope": "in_scope",
+      "scope_correct": true,
+      "expected_status": "answered",
+      "actual_status": "answered",
+      "status_correct": true,
+      "answer_content_correct": true,
+      "expected_tools": [
+        "list_organizations"
+      ],
+      "actual_tools": [
+        "list_organizations"
+      ],
+      "tool_selection_correct": true,
+      "tool_arguments_correct": true,
+      "grounding_status": "deterministic_render",
+      "numeric_provenance_pass": true,
+      "fallback_used": false,
+      "latency_seconds": 0.003964399998949375,
+      "tokens": 0,
+      "estimated_cost_usd": 0.0,
+      "raw_dataset_excluded": true,
+      "unhandled_exception": false
+    },
+    {
+      "id": "metadata_list_sites_and_meters",
+      "category": "metadata_discovery",
+      "expected_scope": "in_scope",
+      "actual_scope": "in_scope",
+      "scope_correct": true,
+      "expected_status": "answered",
+      "actual_status": "answered",
+      "status_correct": true,
+      "answer_content_correct": true,
+      "expected_tools": [
+        "list_sites",
+        "list_meters"
+      ],
+      "actual_tools": [
+        "list_sites",
+        "list_meters"
+      ],
+      "tool_selection_correct": true,
+      "tool_arguments_correct": true,
+      "grounding_status": "deterministic_render",
+      "numeric_provenance_pass": true,
+      "fallback_used": false,
+      "latency_seconds": 0.003067199999350123,
+      "tokens": 0,
+      "estimated_cost_usd": 0.0,
+      "raw_dataset_excluded": true,
+      "unhandled_exception": false
+    },
+    {
+      "id": "metadata_list_all_sites",
+      "category": "metadata_discovery",
+      "expected_scope": "in_scope",
+      "actual_scope": "in_scope",
+      "scope_correct": true,
+      "expected_status": "answered",
+      "actual_status": "answered",
+      "status_correct": true,
+      "answer_content_correct": true,
+      "expected_tools": [
+        "list_sites"
+      ],
+      "actual_tools": [
+        "list_sites"
+      ],
+      "tool_selection_correct": true,
+      "tool_arguments_correct": true,
+      "grounding_status": "deterministic_render",
+      "numeric_provenance_pass": true,
+      "fallback_used": false,
+      "latency_seconds": 0.0019181999959982932,
+      "tokens": 0,
+      "estimated_cost_usd": 0.0,
+      "raw_dataset_excluded": true,
+      "unhandled_exception": false
+    },
+    {
+      "id": "metadata_food_sites_typo",
+      "category": "metadata_discovery",
+      "expected_scope": "in_scope",
+      "actual_scope": "in_scope",
+      "scope_correct": true,
+      "expected_status": "answered",
+      "actual_status": "answered",
+      "status_correct": true,
+      "answer_content_correct": true,
+      "expected_tools": [
+        "list_sites"
+      ],
+      "actual_tools": [
+        "list_sites"
+      ],
+      "tool_selection_correct": true,
+      "tool_arguments_correct": true,
+      "grounding_status": "deterministic_render",
+      "numeric_provenance_pass": true,
+      "fallback_used": false,
+      "latency_seconds": 0.003370400001585949,
+      "tokens": 0,
+      "estimated_cost_usd": 0.0,
+      "raw_dataset_excluded": true,
+      "unhandled_exception": false
+    },
+    {
+      "id": "metadata_hotel_sites",
+      "category": "metadata_discovery",
+      "expected_scope": "in_scope",
+      "actual_scope": "in_scope",
+      "scope_correct": true,
+      "expected_status": "answered",
+      "actual_status": "answered",
+      "status_correct": true,
+      "answer_content_correct": true,
+      "expected_tools": [
+        "list_sites"
+      ],
+      "actual_tools": [
+        "list_sites"
+      ],
+      "tool_selection_correct": true,
+      "tool_arguments_correct": true,
+      "grounding_status": "deterministic_render",
+      "numeric_provenance_pass": true,
+      "fallback_used": false,
+      "latency_seconds": 0.003473599994322285,
+      "tokens": 0,
+      "estimated_cost_usd": 0.0,
+      "raw_dataset_excluded": true,
+      "unhandled_exception": false
+    },
+    {
+      "id": "metadata_list_all_meters",
+      "category": "metadata_discovery",
+      "expected_scope": "in_scope",
+      "actual_scope": "in_scope",
+      "scope_correct": true,
+      "expected_status": "answered",
+      "actual_status": "answered",
+      "status_correct": true,
+      "answer_content_correct": true,
+      "expected_tools": [
+        "list_meters"
+      ],
+      "actual_tools": [
+        "list_meters"
+      ],
+      "tool_selection_correct": true,
+      "tool_arguments_correct": true,
+      "grounding_status": "deterministic_render",
+      "numeric_provenance_pass": true,
+      "fallback_used": false,
+      "latency_seconds": 0.002416099996480625,
+      "tokens": 0,
+      "estimated_cost_usd": 0.0,
+      "raw_dataset_excluded": true,
+      "unhandled_exception": false
+    },
+    {
+      "id": "metadata_food_meters",
+      "category": "metadata_discovery",
+      "expected_scope": "in_scope",
+      "actual_scope": "in_scope",
+      "scope_correct": true,
+      "expected_status": "answered",
+      "actual_status": "answered",
+      "status_correct": true,
+      "answer_content_correct": true,
+      "expected_tools": [
+        "list_meters"
+      ],
+      "actual_tools": [
+        "list_meters"
+      ],
+      "tool_selection_correct": true,
+      "tool_arguments_correct": true,
+      "grounding_status": "deterministic_render",
+      "numeric_provenance_pass": true,
+      "fallback_used": false,
+      "latency_seconds": 0.003421500005060807,
+      "tokens": 0,
+      "estimated_cost_usd": 0.0,
+      "raw_dataset_excluded": true,
+      "unhandled_exception": false
+    },
+    {
+      "id": "metadata_beta_meters",
+      "category": "metadata_discovery",
+      "expected_scope": "in_scope",
+      "actual_scope": "in_scope",
+      "scope_correct": true,
+      "expected_status": "answered",
+      "actual_status": "answered",
+      "status_correct": true,
+      "answer_content_correct": true,
+      "expected_tools": [
+        "list_meters"
+      ],
+      "actual_tools": [
+        "list_meters"
+      ],
+      "tool_selection_correct": true,
+      "tool_arguments_correct": true,
+      "grounding_status": "deterministic_render",
+      "numeric_provenance_pass": true,
+      "fallback_used": false,
+      "latency_seconds": 0.0034675000060815364,
+      "tokens": 0,
+      "estimated_cost_usd": 0.0,
+      "raw_dataset_excluded": true,
+      "unhandled_exception": false
+    },
+    {
+      "id": "metadata_data_availability",
+      "category": "data_extraction",
+      "expected_scope": "in_scope",
+      "actual_scope": "in_scope",
+      "scope_correct": true,
+      "expected_status": "answered",
+      "actual_status": "answered",
+      "status_correct": true,
+      "answer_content_correct": true,
+      "expected_tools": [
+        "get_data_availability"
+      ],
+      "actual_tools": [
+        "get_data_availability"
+      ],
+      "tool_selection_correct": true,
+      "tool_arguments_correct": true,
+      "grounding_status": "deterministic_render",
+      "numeric_provenance_pass": true,
+      "fallback_used": false,
+      "latency_seconds": 1.1321401000022888,
+      "tokens": 0,
+      "estimated_cost_usd": 0.0,
       "raw_dataset_excluded": true,
       "unhandled_exception": false
     },
@@ -317,6 +574,7 @@
       "expected_status": "answered",
       "actual_status": "answered",
       "status_correct": true,
+      "answer_content_correct": true,
       "expected_tools": [
         "rank_sites"
       ],
@@ -328,7 +586,7 @@
       "grounding_status": "deterministic_fallback",
       "numeric_provenance_pass": true,
       "fallback_used": true,
-      "latency_seconds": 14.139904399999068,
+      "latency_seconds": 4.625554700003704,
       "tokens": 1040,
       "estimated_cost_usd": 0.0031,
       "raw_dataset_excluded": true,
@@ -343,6 +601,7 @@
       "expected_status": "answered",
       "actual_status": "answered",
       "status_correct": true,
+      "answer_content_correct": true,
       "expected_tools": [
         "estimate_baseload"
       ],
@@ -354,7 +613,7 @@
       "grounding_status": "deterministic_fallback",
       "numeric_provenance_pass": true,
       "fallback_used": true,
-      "latency_seconds": 7.864735600000131,
+      "latency_seconds": 4.457594899999094,
       "tokens": 1040,
       "estimated_cost_usd": 0.0031,
       "raw_dataset_excluded": true,
@@ -369,6 +628,7 @@
       "expected_status": "answered",
       "actual_status": "answered",
       "status_correct": true,
+      "answer_content_correct": true,
       "expected_tools": [
         "estimate_baseload"
       ],
@@ -380,7 +640,7 @@
       "grounding_status": "deterministic_fallback",
       "numeric_provenance_pass": true,
       "fallback_used": true,
-      "latency_seconds": 4.642524499999126,
+      "latency_seconds": 4.3162012999964645,
       "tokens": 1040,
       "estimated_cost_usd": 0.0031,
       "raw_dataset_excluded": true,
@@ -395,6 +655,7 @@
       "expected_status": "answered",
       "actual_status": "answered",
       "status_correct": true,
+      "answer_content_correct": true,
       "expected_tools": [
         "estimate_baseload"
       ],
@@ -406,7 +667,7 @@
       "grounding_status": "deterministic_fallback",
       "numeric_provenance_pass": true,
       "fallback_used": true,
-      "latency_seconds": 2.8790549999976065,
+      "latency_seconds": 2.4683263000042643,
       "tokens": 1040,
       "estimated_cost_usd": 0.0031,
       "raw_dataset_excluded": true,
@@ -421,6 +682,7 @@
       "expected_status": "answered",
       "actual_status": "answered",
       "status_correct": true,
+      "answer_content_correct": true,
       "expected_tools": [
         "compare_periods",
         "compare_periods"
@@ -434,7 +696,7 @@
       "grounding_status": "deterministic_fallback",
       "numeric_provenance_pass": true,
       "fallback_used": true,
-      "latency_seconds": 9.812049400003161,
+      "latency_seconds": 8.748351499998535,
       "tokens": 1040,
       "estimated_cost_usd": 0.0031,
       "raw_dataset_excluded": true,
@@ -449,6 +711,7 @@
       "expected_status": "answered",
       "actual_status": "answered",
       "status_correct": true,
+      "answer_content_correct": true,
       "expected_tools": [
         "detect_anomalies"
       ],
@@ -460,7 +723,7 @@
       "grounding_status": "deterministic_fallback",
       "numeric_provenance_pass": true,
       "fallback_used": true,
-      "latency_seconds": 12.108002099994337,
+      "latency_seconds": 5.311878799999249,
       "tokens": 1040,
       "estimated_cost_usd": 0.0031,
       "raw_dataset_excluded": true,
@@ -475,6 +738,7 @@
       "expected_status": "answered",
       "actual_status": "answered",
       "status_correct": true,
+      "answer_content_correct": true,
       "expected_tools": [
         "compare_entities"
       ],
@@ -486,7 +750,7 @@
       "grounding_status": "deterministic_fallback",
       "numeric_provenance_pass": true,
       "fallback_used": true,
-      "latency_seconds": 6.258888199998182,
+      "latency_seconds": 5.999839300005988,
       "tokens": 1040,
       "estimated_cost_usd": 0.0031,
       "raw_dataset_excluded": true,
@@ -501,6 +765,7 @@
       "expected_status": "answered",
       "actual_status": "answered",
       "status_correct": true,
+      "answer_content_correct": true,
       "expected_tools": [
         "estimate_baseload"
       ],
@@ -512,7 +777,655 @@
       "grounding_status": "deterministic_fallback",
       "numeric_provenance_pass": true,
       "fallback_used": true,
-      "latency_seconds": 5.6684852999969735,
+      "latency_seconds": 5.911972499998228,
+      "tokens": 1040,
+      "estimated_cost_usd": 0.0031,
+      "raw_dataset_excluded": true,
+      "unhandled_exception": false
+    },
+    {
+      "id": "aggregation_hourly",
+      "category": "data_processing",
+      "expected_scope": "in_scope",
+      "actual_scope": "in_scope",
+      "scope_correct": true,
+      "expected_status": "answered",
+      "actual_status": "answered",
+      "status_correct": true,
+      "answer_content_correct": true,
+      "expected_tools": [
+        "get_consumption_summary"
+      ],
+      "actual_tools": [
+        "get_consumption_summary"
+      ],
+      "tool_selection_correct": true,
+      "tool_arguments_correct": true,
+      "grounding_status": "deterministic_fallback",
+      "numeric_provenance_pass": true,
+      "fallback_used": true,
+      "latency_seconds": 1.3285833000045386,
+      "tokens": 1040,
+      "estimated_cost_usd": 0.0031,
+      "raw_dataset_excluded": true,
+      "unhandled_exception": false
+    },
+    {
+      "id": "aggregation_daily",
+      "category": "data_processing",
+      "expected_scope": "in_scope",
+      "actual_scope": "in_scope",
+      "scope_correct": true,
+      "expected_status": "answered",
+      "actual_status": "answered",
+      "status_correct": true,
+      "answer_content_correct": true,
+      "expected_tools": [
+        "get_consumption_summary"
+      ],
+      "actual_tools": [
+        "get_consumption_summary"
+      ],
+      "tool_selection_correct": true,
+      "tool_arguments_correct": true,
+      "grounding_status": "deterministic_fallback",
+      "numeric_provenance_pass": true,
+      "fallback_used": true,
+      "latency_seconds": 1.1930806000018492,
+      "tokens": 1040,
+      "estimated_cost_usd": 0.0031,
+      "raw_dataset_excluded": true,
+      "unhandled_exception": false
+    },
+    {
+      "id": "aggregation_weekly",
+      "category": "data_processing",
+      "expected_scope": "in_scope",
+      "actual_scope": "in_scope",
+      "scope_correct": true,
+      "expected_status": "answered",
+      "actual_status": "answered",
+      "status_correct": true,
+      "answer_content_correct": true,
+      "expected_tools": [
+        "get_consumption_summary"
+      ],
+      "actual_tools": [
+        "get_consumption_summary"
+      ],
+      "tool_selection_correct": true,
+      "tool_arguments_correct": true,
+      "grounding_status": "deterministic_fallback",
+      "numeric_provenance_pass": true,
+      "fallback_used": true,
+      "latency_seconds": 2.7690535000001546,
+      "tokens": 1560,
+      "estimated_cost_usd": 0.00465,
+      "raw_dataset_excluded": true,
+      "unhandled_exception": false
+    },
+    {
+      "id": "aggregation_monthly",
+      "category": "data_processing",
+      "expected_scope": "in_scope",
+      "actual_scope": "in_scope",
+      "scope_correct": true,
+      "expected_status": "answered",
+      "actual_status": "answered",
+      "status_correct": true,
+      "answer_content_correct": true,
+      "expected_tools": [
+        "get_consumption_summary"
+      ],
+      "actual_tools": [
+        "get_consumption_summary"
+      ],
+      "tool_selection_correct": true,
+      "tool_arguments_correct": true,
+      "grounding_status": "deterministic_fallback",
+      "numeric_provenance_pass": true,
+      "fallback_used": true,
+      "latency_seconds": 2.5070053999952506,
+      "tokens": 1040,
+      "estimated_cost_usd": 0.0031,
+      "raw_dataset_excluded": true,
+      "unhandled_exception": false
+    },
+    {
+      "id": "analytics_average_demand",
+      "category": "energy_analytics",
+      "expected_scope": "in_scope",
+      "actual_scope": "in_scope",
+      "scope_correct": true,
+      "expected_status": "answered",
+      "actual_status": "answered",
+      "status_correct": true,
+      "answer_content_correct": true,
+      "expected_tools": [
+        "get_consumption_summary"
+      ],
+      "actual_tools": [
+        "get_consumption_summary"
+      ],
+      "tool_selection_correct": true,
+      "tool_arguments_correct": true,
+      "grounding_status": "deterministic_fallback",
+      "numeric_provenance_pass": true,
+      "fallback_used": true,
+      "latency_seconds": 1.2183883999969112,
+      "tokens": 1040,
+      "estimated_cost_usd": 0.0031,
+      "raw_dataset_excluded": true,
+      "unhandled_exception": false
+    },
+    {
+      "id": "analytics_peak_site",
+      "category": "energy_analytics",
+      "expected_scope": "in_scope",
+      "actual_scope": "in_scope",
+      "scope_correct": true,
+      "expected_status": "answered",
+      "actual_status": "answered",
+      "status_correct": true,
+      "answer_content_correct": true,
+      "expected_tools": [
+        "get_peak_demand"
+      ],
+      "actual_tools": [
+        "get_peak_demand"
+      ],
+      "tool_selection_correct": true,
+      "tool_arguments_correct": true,
+      "grounding_status": "deterministic_fallback",
+      "numeric_provenance_pass": true,
+      "fallback_used": true,
+      "latency_seconds": 2.071055400003388,
+      "tokens": 1040,
+      "estimated_cost_usd": 0.0031,
+      "raw_dataset_excluded": true,
+      "unhandled_exception": false
+    },
+    {
+      "id": "analytics_load_factor_site",
+      "category": "energy_analytics",
+      "expected_scope": "in_scope",
+      "actual_scope": "in_scope",
+      "scope_correct": true,
+      "expected_status": "answered",
+      "actual_status": "answered",
+      "status_correct": true,
+      "answer_content_correct": true,
+      "expected_tools": [
+        "calculate_load_factor"
+      ],
+      "actual_tools": [
+        "calculate_load_factor"
+      ],
+      "tool_selection_correct": true,
+      "tool_arguments_correct": true,
+      "grounding_status": "deterministic_fallback",
+      "numeric_provenance_pass": true,
+      "fallback_used": true,
+      "latency_seconds": 1.5918600000004517,
+      "tokens": 1040,
+      "estimated_cost_usd": 0.0031,
+      "raw_dataset_excluded": true,
+      "unhandled_exception": false
+    },
+    {
+      "id": "analytics_weekday_weekend_site",
+      "category": "energy_analytics",
+      "expected_scope": "in_scope",
+      "actual_scope": "in_scope",
+      "scope_correct": true,
+      "expected_status": "answered",
+      "actual_status": "answered",
+      "status_correct": true,
+      "answer_content_correct": true,
+      "expected_tools": [
+        "compare_weekday_weekend"
+      ],
+      "actual_tools": [
+        "compare_weekday_weekend"
+      ],
+      "tool_selection_correct": true,
+      "tool_arguments_correct": true,
+      "grounding_status": "deterministic_fallback",
+      "numeric_provenance_pass": true,
+      "fallback_used": true,
+      "latency_seconds": 2.137149000001955,
+      "tokens": 1040,
+      "estimated_cost_usd": 0.0031,
+      "raw_dataset_excluded": true,
+      "unhandled_exception": false
+    },
+    {
+      "id": "analytics_baseload_meter",
+      "category": "energy_analytics",
+      "expected_scope": "in_scope",
+      "actual_scope": "in_scope",
+      "scope_correct": true,
+      "expected_status": "answered",
+      "actual_status": "answered",
+      "status_correct": true,
+      "answer_content_correct": true,
+      "expected_tools": [
+        "estimate_baseload"
+      ],
+      "actual_tools": [
+        "estimate_baseload"
+      ],
+      "tool_selection_correct": true,
+      "tool_arguments_correct": true,
+      "grounding_status": "deterministic_fallback",
+      "numeric_provenance_pass": true,
+      "fallback_used": true,
+      "latency_seconds": 1.1591508999990765,
+      "tokens": 1040,
+      "estimated_cost_usd": 0.0031,
+      "raw_dataset_excluded": true,
+      "unhandled_exception": false
+    },
+    {
+      "id": "analytics_operational_load",
+      "category": "energy_analytics",
+      "expected_scope": "in_scope",
+      "actual_scope": "in_scope",
+      "scope_correct": true,
+      "expected_status": "answered",
+      "actual_status": "answered",
+      "status_correct": true,
+      "answer_content_correct": true,
+      "expected_tools": [
+        "estimate_baseload"
+      ],
+      "actual_tools": [
+        "estimate_baseload"
+      ],
+      "tool_selection_correct": true,
+      "tool_arguments_correct": true,
+      "grounding_status": "deterministic_fallback",
+      "numeric_provenance_pass": true,
+      "fallback_used": true,
+      "latency_seconds": 1.6325433000019984,
+      "tokens": 1040,
+      "estimated_cost_usd": 0.0031,
+      "raw_dataset_excluded": true,
+      "unhandled_exception": false
+    },
+    {
+      "id": "analytics_anomaly_site",
+      "category": "energy_analytics",
+      "expected_scope": "in_scope",
+      "actual_scope": "in_scope",
+      "scope_correct": true,
+      "expected_status": "answered",
+      "actual_status": "answered",
+      "status_correct": true,
+      "answer_content_correct": true,
+      "expected_tools": [
+        "detect_anomalies"
+      ],
+      "actual_tools": [
+        "detect_anomalies"
+      ],
+      "tool_selection_correct": true,
+      "tool_arguments_correct": true,
+      "grounding_status": "deterministic_fallback",
+      "numeric_provenance_pass": true,
+      "fallback_used": true,
+      "latency_seconds": 1.2337728999991668,
+      "tokens": 1040,
+      "estimated_cost_usd": 0.0031,
+      "raw_dataset_excluded": true,
+      "unhandled_exception": false
+    },
+    {
+      "id": "analytics_rank_total",
+      "category": "energy_analytics",
+      "expected_scope": "in_scope",
+      "actual_scope": "in_scope",
+      "scope_correct": true,
+      "expected_status": "answered",
+      "actual_status": "answered",
+      "status_correct": true,
+      "answer_content_correct": true,
+      "expected_tools": [
+        "rank_sites"
+      ],
+      "actual_tools": [
+        "rank_sites"
+      ],
+      "tool_selection_correct": true,
+      "tool_arguments_correct": true,
+      "grounding_status": "deterministic_fallback",
+      "numeric_provenance_pass": true,
+      "fallback_used": true,
+      "latency_seconds": 2.3014925999959814,
+      "tokens": 1040,
+      "estimated_cost_usd": 0.0031,
+      "raw_dataset_excluded": true,
+      "unhandled_exception": false
+    },
+    {
+      "id": "analytics_rank_average_daily",
+      "category": "energy_analytics",
+      "expected_scope": "in_scope",
+      "actual_scope": "in_scope",
+      "scope_correct": true,
+      "expected_status": "answered",
+      "actual_status": "answered",
+      "status_correct": true,
+      "answer_content_correct": true,
+      "expected_tools": [
+        "rank_sites"
+      ],
+      "actual_tools": [
+        "rank_sites"
+      ],
+      "tool_selection_correct": true,
+      "tool_arguments_correct": true,
+      "grounding_status": "deterministic_fallback",
+      "numeric_provenance_pass": true,
+      "fallback_used": true,
+      "latency_seconds": 2.3011048000043957,
+      "tokens": 1040,
+      "estimated_cost_usd": 0.0031,
+      "raw_dataset_excluded": true,
+      "unhandled_exception": false
+    },
+    {
+      "id": "analytics_rank_load_factor",
+      "category": "energy_analytics",
+      "expected_scope": "in_scope",
+      "actual_scope": "in_scope",
+      "scope_correct": true,
+      "expected_status": "answered",
+      "actual_status": "answered",
+      "status_correct": true,
+      "answer_content_correct": true,
+      "expected_tools": [
+        "rank_sites"
+      ],
+      "actual_tools": [
+        "rank_sites"
+      ],
+      "tool_selection_correct": true,
+      "tool_arguments_correct": true,
+      "grounding_status": "deterministic_fallback",
+      "numeric_provenance_pass": true,
+      "fallback_used": true,
+      "latency_seconds": 2.2886432000013883,
+      "tokens": 1040,
+      "estimated_cost_usd": 0.0031,
+      "raw_dataset_excluded": true,
+      "unhandled_exception": false
+    },
+    {
+      "id": "analytics_rank_completeness",
+      "category": "energy_analytics",
+      "expected_scope": "in_scope",
+      "actual_scope": "in_scope",
+      "scope_correct": true,
+      "expected_status": "answered",
+      "actual_status": "answered",
+      "status_correct": true,
+      "answer_content_correct": true,
+      "expected_tools": [
+        "rank_sites"
+      ],
+      "actual_tools": [
+        "rank_sites"
+      ],
+      "tool_selection_correct": true,
+      "tool_arguments_correct": true,
+      "grounding_status": "deterministic_fallback",
+      "numeric_provenance_pass": true,
+      "fallback_used": true,
+      "latency_seconds": 2.2274193999983254,
+      "tokens": 1040,
+      "estimated_cost_usd": 0.0031,
+      "raw_dataset_excluded": true,
+      "unhandled_exception": false
+    },
+    {
+      "id": "analytics_profile_normalized",
+      "category": "energy_analytics",
+      "expected_scope": "in_scope",
+      "actual_scope": "in_scope",
+      "scope_correct": true,
+      "expected_status": "answered",
+      "actual_status": "answered",
+      "status_correct": true,
+      "answer_content_correct": true,
+      "expected_tools": [
+        "get_load_profile"
+      ],
+      "actual_tools": [
+        "get_load_profile"
+      ],
+      "tool_selection_correct": true,
+      "tool_arguments_correct": true,
+      "grounding_status": "deterministic_fallback",
+      "numeric_provenance_pass": true,
+      "fallback_used": true,
+      "latency_seconds": 1.202561699996295,
+      "tokens": 1040,
+      "estimated_cost_usd": 0.0031,
+      "raw_dataset_excluded": true,
+      "unhandled_exception": false
+    },
+    {
+      "id": "quality_missing_intervals",
+      "category": "robustness",
+      "expected_scope": "in_scope",
+      "actual_scope": "in_scope",
+      "scope_correct": true,
+      "expected_status": "answered",
+      "actual_status": "answered",
+      "status_correct": true,
+      "answer_content_correct": true,
+      "expected_tools": [
+        "get_data_quality"
+      ],
+      "actual_tools": [
+        "get_data_quality"
+      ],
+      "tool_selection_correct": true,
+      "tool_arguments_correct": true,
+      "grounding_status": "deterministic_fallback",
+      "numeric_provenance_pass": true,
+      "fallback_used": true,
+      "latency_seconds": 1.2136565999971936,
+      "tokens": 1040,
+      "estimated_cost_usd": 0.0031,
+      "raw_dataset_excluded": true,
+      "unhandled_exception": false
+    },
+    {
+      "id": "quality_duplicates",
+      "category": "robustness",
+      "expected_scope": "in_scope",
+      "actual_scope": "in_scope",
+      "scope_correct": true,
+      "expected_status": "answered",
+      "actual_status": "answered",
+      "status_correct": true,
+      "answer_content_correct": true,
+      "expected_tools": [
+        "get_data_quality"
+      ],
+      "actual_tools": [
+        "get_data_quality"
+      ],
+      "tool_selection_correct": true,
+      "tool_arguments_correct": true,
+      "grounding_status": "deterministic_fallback",
+      "numeric_provenance_pass": true,
+      "fallback_used": true,
+      "latency_seconds": 0.003319700001156889,
+      "tokens": 1040,
+      "estimated_cost_usd": 0.0031,
+      "raw_dataset_excluded": true,
+      "unhandled_exception": false
+    },
+    {
+      "id": "quality_timezone",
+      "category": "robustness",
+      "expected_scope": "in_scope",
+      "actual_scope": "in_scope",
+      "scope_correct": true,
+      "expected_status": "answered",
+      "actual_status": "answered",
+      "status_correct": true,
+      "answer_content_correct": true,
+      "expected_tools": [
+        "get_data_quality"
+      ],
+      "actual_tools": [
+        "get_data_quality"
+      ],
+      "tool_selection_correct": true,
+      "tool_arguments_correct": true,
+      "grounding_status": "deterministic_fallback",
+      "numeric_provenance_pass": true,
+      "fallback_used": true,
+      "latency_seconds": 0.0028531000061775558,
+      "tokens": 1040,
+      "estimated_cost_usd": 0.0031,
+      "raw_dataset_excluded": true,
+      "unhandled_exception": false
+    },
+    {
+      "id": "comparison_organizations_total",
+      "category": "cross_organization",
+      "expected_scope": "in_scope",
+      "actual_scope": "in_scope",
+      "scope_correct": true,
+      "expected_status": "answered",
+      "actual_status": "answered",
+      "status_correct": true,
+      "answer_content_correct": true,
+      "expected_tools": [
+        "compare_entities"
+      ],
+      "actual_tools": [
+        "compare_entities"
+      ],
+      "tool_selection_correct": true,
+      "tool_arguments_correct": true,
+      "grounding_status": "deterministic_fallback",
+      "numeric_provenance_pass": true,
+      "fallback_used": true,
+      "latency_seconds": 2.2856916000018828,
+      "tokens": 1560,
+      "estimated_cost_usd": 0.00465,
+      "raw_dataset_excluded": true,
+      "unhandled_exception": false
+    },
+    {
+      "id": "comparison_sites_load_factor",
+      "category": "cross_site",
+      "expected_scope": "in_scope",
+      "actual_scope": "in_scope",
+      "scope_correct": true,
+      "expected_status": "answered",
+      "actual_status": "answered",
+      "status_correct": true,
+      "answer_content_correct": true,
+      "expected_tools": [
+        "compare_entities"
+      ],
+      "actual_tools": [
+        "compare_entities"
+      ],
+      "tool_selection_correct": true,
+      "tool_arguments_correct": true,
+      "grounding_status": "deterministic_fallback",
+      "numeric_provenance_pass": true,
+      "fallback_used": true,
+      "latency_seconds": 2.420428700002958,
+      "tokens": 1560,
+      "estimated_cost_usd": 0.00465,
+      "raw_dataset_excluded": true,
+      "unhandled_exception": false
+    },
+    {
+      "id": "method_baseload",
+      "category": "methodology",
+      "expected_scope": "in_scope",
+      "actual_scope": "in_scope",
+      "scope_correct": true,
+      "expected_status": "answered",
+      "actual_status": "answered",
+      "status_correct": true,
+      "answer_content_correct": true,
+      "expected_tools": [
+        "estimate_baseload"
+      ],
+      "actual_tools": [
+        "estimate_baseload"
+      ],
+      "tool_selection_correct": true,
+      "tool_arguments_correct": true,
+      "grounding_status": "deterministic_fallback",
+      "numeric_provenance_pass": true,
+      "fallback_used": true,
+      "latency_seconds": 2.3567144999979064,
+      "tokens": 1040,
+      "estimated_cost_usd": 0.0031,
+      "raw_dataset_excluded": true,
+      "unhandled_exception": false
+    },
+    {
+      "id": "method_anomaly",
+      "category": "methodology",
+      "expected_scope": "in_scope",
+      "actual_scope": "in_scope",
+      "scope_correct": true,
+      "expected_status": "answered",
+      "actual_status": "answered",
+      "status_correct": true,
+      "answer_content_correct": true,
+      "expected_tools": [
+        "detect_anomalies"
+      ],
+      "actual_tools": [
+        "detect_anomalies"
+      ],
+      "tool_selection_correct": true,
+      "tool_arguments_correct": true,
+      "grounding_status": "deterministic_fallback",
+      "numeric_provenance_pass": true,
+      "fallback_used": true,
+      "latency_seconds": 4.9412056999935885,
+      "tokens": 1040,
+      "estimated_cost_usd": 0.0031,
+      "raw_dataset_excluded": true,
+      "unhandled_exception": false
+    },
+    {
+      "id": "incomplete_current_month",
+      "category": "incomplete_period",
+      "expected_scope": "in_scope",
+      "actual_scope": "in_scope",
+      "scope_correct": true,
+      "expected_status": "answered",
+      "actual_status": "answered",
+      "status_correct": true,
+      "answer_content_correct": true,
+      "expected_tools": [
+        "get_consumption_summary"
+      ],
+      "actual_tools": [
+        "get_consumption_summary"
+      ],
+      "tool_selection_correct": true,
+      "tool_arguments_correct": true,
+      "grounding_status": "deterministic_fallback",
+      "numeric_provenance_pass": true,
+      "fallback_used": true,
+      "latency_seconds": 1.2083195000013802,
       "tokens": 1040,
       "estimated_cost_usd": 0.0031,
       "raw_dataset_excluded": true,
@@ -527,6 +1440,7 @@
       "expected_status": "answered",
       "actual_status": "answered",
       "status_correct": true,
+      "answer_content_correct": true,
       "expected_tools": [
         "get_peak_demand"
       ],
@@ -538,7 +1452,7 @@
       "grounding_status": "deterministic_fallback",
       "numeric_provenance_pass": true,
       "fallback_used": true,
-      "latency_seconds": 1.1509980999981053,
+      "latency_seconds": 1.184841199996299,
       "tokens": 1040,
       "estimated_cost_usd": 0.0031,
       "raw_dataset_excluded": true,
@@ -553,6 +1467,7 @@
       "expected_status": "answered",
       "actual_status": "answered",
       "status_correct": true,
+      "answer_content_correct": true,
       "expected_tools": [
         "get_consumption_summary"
       ],
@@ -564,7 +1479,7 @@
       "grounding_status": "deterministic_fallback",
       "numeric_provenance_pass": true,
       "fallback_used": true,
-      "latency_seconds": 1.2033701999971527,
+      "latency_seconds": 1.2081711999999243,
       "tokens": 1040,
       "estimated_cost_usd": 0.0031,
       "raw_dataset_excluded": true,
@@ -579,6 +1494,7 @@
       "expected_status": "answered",
       "actual_status": "answered",
       "status_correct": true,
+      "answer_content_correct": true,
       "expected_tools": [
         "detect_anomalies"
       ],
@@ -590,7 +1506,7 @@
       "grounding_status": "deterministic_fallback",
       "numeric_provenance_pass": true,
       "fallback_used": true,
-      "latency_seconds": 4.9983603000000585,
+      "latency_seconds": 5.221163800000795,
       "tokens": 1040,
       "estimated_cost_usd": 0.0031,
       "raw_dataset_excluded": true,
@@ -605,6 +1521,7 @@
       "expected_status": "answered",
       "actual_status": "answered",
       "status_correct": true,
+      "answer_content_correct": true,
       "expected_tools": [
         "estimate_baseload"
       ],
@@ -616,7 +1533,7 @@
       "grounding_status": "deterministic_fallback",
       "numeric_provenance_pass": true,
       "fallback_used": true,
-      "latency_seconds": 1.1990093999993405,
+      "latency_seconds": 1.1758820000031847,
       "tokens": 1040,
       "estimated_cost_usd": 0.0031,
       "raw_dataset_excluded": true,
@@ -631,6 +1548,7 @@
       "expected_status": "answered",
       "actual_status": "answered",
       "status_correct": true,
+      "answer_content_correct": true,
       "expected_tools": [
         "get_data_quality"
       ],
@@ -642,7 +1560,7 @@
       "grounding_status": "deterministic_fallback",
       "numeric_provenance_pass": true,
       "fallback_used": true,
-      "latency_seconds": 1.196696899998642,
+      "latency_seconds": 1.1776490999982343,
       "tokens": 1040,
       "estimated_cost_usd": 0.0031,
       "raw_dataset_excluded": true,
@@ -657,6 +1575,7 @@
       "expected_status": "answered",
       "actual_status": "answered",
       "status_correct": true,
+      "answer_content_correct": true,
       "expected_tools": [
         "calculate_load_factor"
       ],
@@ -668,7 +1587,7 @@
       "grounding_status": "deterministic_fallback",
       "numeric_provenance_pass": true,
       "fallback_used": true,
-      "latency_seconds": 1.1288540000023204,
+      "latency_seconds": 1.1704317000039737,
       "tokens": 1040,
       "estimated_cost_usd": 0.0031,
       "raw_dataset_excluded": true,
@@ -683,6 +1602,7 @@
       "expected_status": "answered",
       "actual_status": "answered",
       "status_correct": true,
+      "answer_content_correct": true,
       "expected_tools": [
         "compare_weekday_weekend"
       ],
@@ -694,7 +1614,7 @@
       "grounding_status": "deterministic_fallback",
       "numeric_provenance_pass": true,
       "fallback_used": true,
-      "latency_seconds": 1.1849120000042603,
+      "latency_seconds": 1.192091299999447,
       "tokens": 1040,
       "estimated_cost_usd": 0.0031,
       "raw_dataset_excluded": true,
@@ -709,6 +1629,7 @@
       "expected_status": "answered",
       "actual_status": "answered",
       "status_correct": true,
+      "answer_content_correct": true,
       "expected_tools": [
         "get_load_profile"
       ],
@@ -720,7 +1641,7 @@
       "grounding_status": "deterministic_fallback",
       "numeric_provenance_pass": true,
       "fallback_used": true,
-      "latency_seconds": 1.1646544999966864,
+      "latency_seconds": 1.1580841000031796,
       "tokens": 1040,
       "estimated_cost_usd": 0.0031,
       "raw_dataset_excluded": true,
@@ -735,6 +1656,7 @@
       "expected_status": "answered",
       "actual_status": "answered",
       "status_correct": true,
+      "answer_content_correct": true,
       "expected_tools": [
         "rank_sites"
       ],
@@ -746,7 +1668,7 @@
       "grounding_status": "deterministic_fallback",
       "numeric_provenance_pass": true,
       "fallback_used": true,
-      "latency_seconds": 1.1634161999973003,
+      "latency_seconds": 1.1946984000023804,
       "tokens": 1040,
       "estimated_cost_usd": 0.0031,
       "raw_dataset_excluded": true,
@@ -761,6 +1683,7 @@
       "expected_status": "answered",
       "actual_status": "answered",
       "status_correct": true,
+      "answer_content_correct": true,
       "expected_tools": [
         "compare_periods"
       ],
@@ -772,7 +1695,7 @@
       "grounding_status": "deterministic_fallback",
       "numeric_provenance_pass": true,
       "fallback_used": true,
-      "latency_seconds": 1.1959207000036258,
+      "latency_seconds": 1.203815000000759,
       "tokens": 1560,
       "estimated_cost_usd": 0.00465,
       "raw_dataset_excluded": true,
@@ -787,6 +1710,7 @@
       "expected_status": "unsupported",
       "actual_status": "unsupported",
       "status_correct": true,
+      "answer_content_correct": true,
       "expected_tools": [],
       "actual_tools": [],
       "tool_selection_correct": true,
@@ -794,7 +1718,7 @@
       "grounding_status": "not_applicable",
       "numeric_provenance_pass": true,
       "fallback_used": false,
-      "latency_seconds": 3.149999974993989e-05,
+      "latency_seconds": 4.400000034365803e-05,
       "tokens": 0,
       "estimated_cost_usd": 0.0,
       "raw_dataset_excluded": true,
@@ -809,6 +1733,7 @@
       "expected_status": "unsupported",
       "actual_status": "unsupported",
       "status_correct": true,
+      "answer_content_correct": true,
       "expected_tools": [],
       "actual_tools": [],
       "tool_selection_correct": true,
@@ -816,7 +1741,7 @@
       "grounding_status": "not_applicable",
       "numeric_provenance_pass": true,
       "fallback_used": false,
-      "latency_seconds": 1.750000228639692e-05,
+      "latency_seconds": 2.8299997211433947e-05,
       "tokens": 0,
       "estimated_cost_usd": 0.0,
       "raw_dataset_excluded": true,
@@ -831,6 +1756,7 @@
       "expected_status": "unsupported",
       "actual_status": "unsupported",
       "status_correct": true,
+      "answer_content_correct": true,
       "expected_tools": [],
       "actual_tools": [],
       "tool_selection_correct": true,
@@ -838,7 +1764,7 @@
       "grounding_status": "not_applicable",
       "numeric_provenance_pass": true,
       "fallback_used": false,
-      "latency_seconds": 1.479999627918005e-05,
+      "latency_seconds": 1.5199999324977398e-05,
       "tokens": 0,
       "estimated_cost_usd": 0.0,
       "raw_dataset_excluded": true,
@@ -853,6 +1779,7 @@
       "expected_status": "unsupported",
       "actual_status": "unsupported",
       "status_correct": true,
+      "answer_content_correct": true,
       "expected_tools": [],
       "actual_tools": [],
       "tool_selection_correct": true,
@@ -860,7 +1787,7 @@
       "grounding_status": "not_applicable",
       "numeric_provenance_pass": true,
       "fallback_used": false,
-      "latency_seconds": 1.529999281046912e-05,
+      "latency_seconds": 1.4399993233382702e-05,
       "tokens": 0,
       "estimated_cost_usd": 0.0,
       "raw_dataset_excluded": true,
@@ -875,6 +1802,7 @@
       "expected_status": "unsupported",
       "actual_status": "unsupported",
       "status_correct": true,
+      "answer_content_correct": true,
       "expected_tools": [],
       "actual_tools": [],
       "tool_selection_correct": true,
@@ -882,7 +1810,7 @@
       "grounding_status": "not_applicable",
       "numeric_provenance_pass": true,
       "fallback_used": false,
-      "latency_seconds": 1.4800003555137664e-05,
+      "latency_seconds": 1.4700002793688327e-05,
       "tokens": 0,
       "estimated_cost_usd": 0.0,
       "raw_dataset_excluded": true,
@@ -897,6 +1825,7 @@
       "expected_status": "out_of_scope",
       "actual_status": "out_of_scope",
       "status_correct": true,
+      "answer_content_correct": true,
       "expected_tools": [],
       "actual_tools": [],
       "tool_selection_correct": true,
@@ -904,7 +1833,7 @@
       "grounding_status": "not_applicable",
       "numeric_provenance_pass": true,
       "fallback_used": false,
-      "latency_seconds": 0.0008476000002701767,
+      "latency_seconds": 0.0008960999984992668,
       "tokens": 0,
       "estimated_cost_usd": 0.0,
       "raw_dataset_excluded": true,
@@ -919,6 +1848,7 @@
       "expected_status": "out_of_scope",
       "actual_status": "out_of_scope",
       "status_correct": true,
+      "answer_content_correct": true,
       "expected_tools": [],
       "actual_tools": [],
       "tool_selection_correct": true,
@@ -926,7 +1856,7 @@
       "grounding_status": "not_applicable",
       "numeric_provenance_pass": true,
       "fallback_used": false,
-      "latency_seconds": 0.0008170000000973232,
+      "latency_seconds": 0.0008378999991691671,
       "tokens": 0,
       "estimated_cost_usd": 0.0,
       "raw_dataset_excluded": true,
@@ -941,6 +1871,7 @@
       "expected_status": "out_of_scope",
       "actual_status": "out_of_scope",
       "status_correct": true,
+      "answer_content_correct": true,
       "expected_tools": [],
       "actual_tools": [],
       "tool_selection_correct": true,
@@ -948,7 +1879,7 @@
       "grounding_status": "not_applicable",
       "numeric_provenance_pass": true,
       "fallback_used": false,
-      "latency_seconds": 0.0008021000030566938,
+      "latency_seconds": 0.0007981999951880425,
       "tokens": 0,
       "estimated_cost_usd": 0.0,
       "raw_dataset_excluded": true,
@@ -963,6 +1894,7 @@
       "expected_status": "out_of_scope",
       "actual_status": "out_of_scope",
       "status_correct": true,
+      "answer_content_correct": true,
       "expected_tools": [],
       "actual_tools": [],
       "tool_selection_correct": true,
@@ -970,7 +1902,7 @@
       "grounding_status": "not_applicable",
       "numeric_provenance_pass": true,
       "fallback_used": false,
-      "latency_seconds": 0.0007952000014483929,
+      "latency_seconds": 0.0007640999974682927,
       "tokens": 0,
       "estimated_cost_usd": 0.0,
       "raw_dataset_excluded": true,
@@ -985,6 +1917,7 @@
       "expected_status": "out_of_scope",
       "actual_status": "out_of_scope",
       "status_correct": true,
+      "answer_content_correct": true,
       "expected_tools": [],
       "actual_tools": [],
       "tool_selection_correct": true,
@@ -992,7 +1925,7 @@
       "grounding_status": "not_applicable",
       "numeric_provenance_pass": true,
       "fallback_used": false,
-      "latency_seconds": 0.0008156000039889477,
+      "latency_seconds": 0.0007948000056785531,
       "tokens": 0,
       "estimated_cost_usd": 0.0,
       "raw_dataset_excluded": true,
@@ -1007,6 +1940,7 @@
       "expected_status": "out_of_scope",
       "actual_status": "out_of_scope",
       "status_correct": true,
+      "answer_content_correct": true,
       "expected_tools": [],
       "actual_tools": [],
       "tool_selection_correct": true,
@@ -1014,7 +1948,7 @@
       "grounding_status": "not_applicable",
       "numeric_provenance_pass": true,
       "fallback_used": false,
-      "latency_seconds": 0.0007928000050014816,
+      "latency_seconds": 0.0008125000022118911,
       "tokens": 0,
       "estimated_cost_usd": 0.0,
       "raw_dataset_excluded": true,
@@ -1029,6 +1963,7 @@
       "expected_status": "out_of_scope",
       "actual_status": "out_of_scope",
       "status_correct": true,
+      "answer_content_correct": true,
       "expected_tools": [],
       "actual_tools": [],
       "tool_selection_correct": true,
@@ -1036,7 +1971,7 @@
       "grounding_status": "not_applicable",
       "numeric_provenance_pass": true,
       "fallback_used": false,
-      "latency_seconds": 0.0007804000051692128,
+      "latency_seconds": 0.0008295999941765331,
       "tokens": 0,
       "estimated_cost_usd": 0.0,
       "raw_dataset_excluded": true,
@@ -1051,6 +1986,7 @@
       "expected_status": "out_of_scope",
       "actual_status": "out_of_scope",
       "status_correct": true,
+      "answer_content_correct": true,
       "expected_tools": [],
       "actual_tools": [],
       "tool_selection_correct": true,
@@ -1058,7 +1994,7 @@
       "grounding_status": "not_applicable",
       "numeric_provenance_pass": true,
       "fallback_used": false,
-      "latency_seconds": 0.0007614999994984828,
+      "latency_seconds": 0.0007731999940006062,
       "tokens": 0,
       "estimated_cost_usd": 0.0,
       "raw_dataset_excluded": true,
@@ -1073,6 +2009,7 @@
       "expected_status": "out_of_scope",
       "actual_status": "out_of_scope",
       "status_correct": true,
+      "answer_content_correct": true,
       "expected_tools": [],
       "actual_tools": [],
       "tool_selection_correct": true,
@@ -1080,7 +2017,7 @@
       "grounding_status": "not_applicable",
       "numeric_provenance_pass": true,
       "fallback_used": false,
-      "latency_seconds": 1.939999492606148e-05,
+      "latency_seconds": 1.9400002202019095e-05,
       "tokens": 0,
       "estimated_cost_usd": 0.0,
       "raw_dataset_excluded": true,
@@ -1095,6 +2032,7 @@
       "expected_status": "out_of_scope",
       "actual_status": "out_of_scope",
       "status_correct": true,
+      "answer_content_correct": true,
       "expected_tools": [],
       "actual_tools": [],
       "tool_selection_correct": true,
@@ -1102,7 +2040,7 @@
       "grounding_status": "not_applicable",
       "numeric_provenance_pass": true,
       "fallback_used": false,
-      "latency_seconds": 1.2899996363557875e-05,
+      "latency_seconds": 1.2999997125007212e-05,
       "tokens": 0,
       "estimated_cost_usd": 0.0,
       "raw_dataset_excluded": true,
@@ -1117,6 +2055,7 @@
       "expected_status": "clarification_needed",
       "actual_status": "clarification_needed",
       "status_correct": true,
+      "answer_content_correct": true,
       "expected_tools": [],
       "actual_tools": [],
       "tool_selection_correct": true,
@@ -1124,7 +2063,7 @@
       "grounding_status": "not_applicable",
       "numeric_provenance_pass": true,
       "fallback_used": false,
-      "latency_seconds": 0.0007657000023755245,
+      "latency_seconds": 0.0007755000042379834,
       "tokens": 0,
       "estimated_cost_usd": 0.0,
       "raw_dataset_excluded": true,
@@ -1139,6 +2078,7 @@
       "expected_status": "data_unavailable",
       "actual_status": "data_unavailable",
       "status_correct": true,
+      "answer_content_correct": true,
       "expected_tools": [
         "get_peak_demand"
       ],
@@ -1150,7 +2090,7 @@
       "grounding_status": "no_factual_result",
       "numeric_provenance_pass": true,
       "fallback_used": false,
-      "latency_seconds": 1.16734429999633,
+      "latency_seconds": 1.2142929000037839,
       "tokens": 0,
       "estimated_cost_usd": 0.0,
       "raw_dataset_excluded": true,
@@ -1165,6 +2105,7 @@
       "expected_status": "tool_error",
       "actual_status": "tool_error",
       "status_correct": true,
+      "answer_content_correct": true,
       "expected_tools": [],
       "actual_tools": [
         "get_consumption_summary"
@@ -1174,7 +2115,7 @@
       "grounding_status": "no_factual_result",
       "numeric_provenance_pass": true,
       "fallback_used": false,
-      "latency_seconds": 0.001555899994855281,
+      "latency_seconds": 0.0016294999950332567,
       "tokens": 1040,
       "estimated_cost_usd": 0.0031,
       "raw_dataset_excluded": true,
@@ -1189,6 +2130,7 @@
       "expected_status": "answered",
       "actual_status": "answered",
       "status_correct": true,
+      "answer_content_correct": true,
       "expected_tools": [
         "get_peak_demand"
       ],
@@ -1200,7 +2142,7 @@
       "grounding_status": "deterministic_fallback",
       "numeric_provenance_pass": true,
       "fallback_used": true,
-      "latency_seconds": 1.1935889999949723,
+      "latency_seconds": 1.1536908999987645,
       "tokens": 0,
       "estimated_cost_usd": 0.0,
       "raw_dataset_excluded": true,
@@ -1215,6 +2157,7 @@
       "expected_status": "answered",
       "actual_status": "answered",
       "status_correct": true,
+      "answer_content_correct": true,
       "expected_tools": [
         "get_consumption_summary"
       ],
@@ -1226,7 +2169,7 @@
       "grounding_status": "deterministic_fallback",
       "numeric_provenance_pass": true,
       "fallback_used": true,
-      "latency_seconds": 1.1825251999980537,
+      "latency_seconds": 1.1914364999975078,
       "tokens": 1040,
       "estimated_cost_usd": 0.0031,
       "raw_dataset_excluded": true,
@@ -1241,6 +2184,7 @@
       "expected_status": "answered",
       "actual_status": "answered",
       "status_correct": true,
+      "answer_content_correct": true,
       "expected_tools": [
         "get_peak_demand"
       ],
@@ -1252,7 +2196,7 @@
       "grounding_status": "deterministic_fallback",
       "numeric_provenance_pass": true,
       "fallback_used": true,
-      "latency_seconds": 1.2032703000004403,
+      "latency_seconds": 1.1616025000039372,
       "tokens": 1040,
       "estimated_cost_usd": 0.0031,
       "raw_dataset_excluded": true,
@@ -1267,6 +2211,7 @@
       "expected_status": "answered",
       "actual_status": "answered",
       "status_correct": true,
+      "answer_content_correct": true,
       "expected_tools": [
         "get_consumption_summary"
       ],
@@ -1278,7 +2223,7 @@
       "grounding_status": "deterministic_fallback",
       "numeric_provenance_pass": true,
       "fallback_used": true,
-      "latency_seconds": 1.1640931000001729,
+      "latency_seconds": 1.1730277000024216,
       "tokens": 1040,
       "estimated_cost_usd": 0.0031,
       "raw_dataset_excluded": true,
@@ -1293,6 +2238,7 @@
       "expected_status": "answered",
       "actual_status": "answered",
       "status_correct": true,
+      "answer_content_correct": true,
       "expected_tools": [
         "get_data_quality"
       ],
@@ -1304,7 +2250,7 @@
       "grounding_status": "deterministic_fallback",
       "numeric_provenance_pass": true,
       "fallback_used": true,
-      "latency_seconds": 1.1256005999966874,
+      "latency_seconds": 1.208737499997369,
       "tokens": 1040,
       "estimated_cost_usd": 0.0031,
       "raw_dataset_excluded": true,
@@ -1319,6 +2265,7 @@
       "expected_status": "answered",
       "actual_status": "answered",
       "status_correct": true,
+      "answer_content_correct": true,
       "expected_tools": [
         "detect_anomalies"
       ],
@@ -1330,7 +2277,7 @@
       "grounding_status": "deterministic_fallback",
       "numeric_provenance_pass": true,
       "fallback_used": true,
-      "latency_seconds": 4.955805400000827,
+      "latency_seconds": 5.46096199999738,
       "tokens": 1040,
       "estimated_cost_usd": 0.0031,
       "raw_dataset_excluded": true,
@@ -1345,6 +2292,7 @@
       "expected_status": "answered",
       "actual_status": "answered",
       "status_correct": true,
+      "answer_content_correct": true,
       "expected_tools": [
         "calculate_load_factor"
       ],
@@ -1356,7 +2304,7 @@
       "grounding_status": "deterministic_fallback",
       "numeric_provenance_pass": true,
       "fallback_used": true,
-      "latency_seconds": 2.591793100000359,
+      "latency_seconds": 2.660116899998684,
       "tokens": 1040,
       "estimated_cost_usd": 0.0031,
       "raw_dataset_excluded": true,
@@ -1371,6 +2319,7 @@
       "expected_status": "answered",
       "actual_status": "answered",
       "status_correct": true,
+      "answer_content_correct": true,
       "expected_tools": [
         "get_data_quality"
       ],
@@ -1382,7 +2331,7 @@
       "grounding_status": "deterministic_fallback",
       "numeric_provenance_pass": true,
       "fallback_used": true,
-      "latency_seconds": 1.143577599999844,
+      "latency_seconds": 1.1800043000039295,
       "tokens": 1040,
       "estimated_cost_usd": 0.0031,
       "raw_dataset_excluded": true,
@@ -1397,6 +2346,7 @@
       "expected_status": "answered",
       "actual_status": "answered",
       "status_correct": true,
+      "answer_content_correct": true,
       "expected_tools": [
         "get_data_quality"
       ],
@@ -1408,7 +2358,7 @@
       "grounding_status": "deterministic_fallback",
       "numeric_provenance_pass": true,
       "fallback_used": true,
-      "latency_seconds": 1.1821487999986857,
+      "latency_seconds": 0.002863699999579694,
       "tokens": 1040,
       "estimated_cost_usd": 0.0031,
       "raw_dataset_excluded": true,
@@ -1423,6 +2373,7 @@
       "expected_status": "answered",
       "actual_status": "answered",
       "status_correct": true,
+      "answer_content_correct": true,
       "expected_tools": [
         "get_load_profile"
       ],
@@ -1434,7 +2385,7 @@
       "grounding_status": "deterministic_fallback",
       "numeric_provenance_pass": true,
       "fallback_used": true,
-      "latency_seconds": 1.1655969999992521,
+      "latency_seconds": 1.1954913999943528,
       "tokens": 1040,
       "estimated_cost_usd": 0.0031,
       "raw_dataset_excluded": true,
@@ -1449,6 +2400,7 @@
       "expected_status": "answered",
       "actual_status": "answered",
       "status_correct": true,
+      "answer_content_correct": true,
       "expected_tools": [
         "compare_weekday_weekend"
       ],
@@ -1460,7 +2412,223 @@
       "grounding_status": "deterministic_fallback",
       "numeric_provenance_pass": true,
       "fallback_used": true,
-      "latency_seconds": 1.1548399000021163,
+      "latency_seconds": 1.2151770000054967,
+      "tokens": 1040,
+      "estimated_cost_usd": 0.0031,
+      "raw_dataset_excluded": true,
+      "unhandled_exception": false
+    },
+    {
+      "id": "followup_metadata_availability_turn_1",
+      "category": "multi_turn",
+      "expected_scope": "in_scope",
+      "actual_scope": "in_scope",
+      "scope_correct": true,
+      "expected_status": "answered",
+      "actual_status": "answered",
+      "status_correct": true,
+      "answer_content_correct": true,
+      "expected_tools": [
+        "list_meters"
+      ],
+      "actual_tools": [
+        "list_meters"
+      ],
+      "tool_selection_correct": true,
+      "tool_arguments_correct": true,
+      "grounding_status": "deterministic_render",
+      "numeric_provenance_pass": true,
+      "fallback_used": false,
+      "latency_seconds": 0.0038845000017317943,
+      "tokens": 0,
+      "estimated_cost_usd": 0.0,
+      "raw_dataset_excluded": true,
+      "unhandled_exception": false
+    },
+    {
+      "id": "followup_metadata_availability_turn_2",
+      "category": "multi_turn",
+      "expected_scope": "in_scope",
+      "actual_scope": "in_scope",
+      "scope_correct": true,
+      "expected_status": "answered",
+      "actual_status": "answered",
+      "status_correct": true,
+      "answer_content_correct": true,
+      "expected_tools": [
+        "get_data_availability"
+      ],
+      "actual_tools": [
+        "get_data_availability"
+      ],
+      "tool_selection_correct": true,
+      "tool_arguments_correct": true,
+      "grounding_status": "deterministic_render",
+      "numeric_provenance_pass": true,
+      "fallback_used": false,
+      "latency_seconds": 2.321476699995401,
+      "tokens": 0,
+      "estimated_cost_usd": 0.0,
+      "raw_dataset_excluded": true,
+      "unhandled_exception": false
+    },
+    {
+      "id": "followup_operational_load_turn_1",
+      "category": "multi_turn",
+      "expected_scope": "in_scope",
+      "actual_scope": "in_scope",
+      "scope_correct": true,
+      "expected_status": "answered",
+      "actual_status": "answered",
+      "status_correct": true,
+      "answer_content_correct": true,
+      "expected_tools": [
+        "get_consumption_summary"
+      ],
+      "actual_tools": [
+        "get_consumption_summary"
+      ],
+      "tool_selection_correct": true,
+      "tool_arguments_correct": true,
+      "grounding_status": "deterministic_fallback",
+      "numeric_provenance_pass": true,
+      "fallback_used": true,
+      "latency_seconds": 1.668436699997983,
+      "tokens": 1040,
+      "estimated_cost_usd": 0.0031,
+      "raw_dataset_excluded": true,
+      "unhandled_exception": false
+    },
+    {
+      "id": "followup_operational_load_turn_2",
+      "category": "multi_turn",
+      "expected_scope": "in_scope",
+      "actual_scope": "in_scope",
+      "scope_correct": true,
+      "expected_status": "answered",
+      "actual_status": "answered",
+      "status_correct": true,
+      "answer_content_correct": true,
+      "expected_tools": [
+        "estimate_baseload"
+      ],
+      "actual_tools": [
+        "estimate_baseload"
+      ],
+      "tool_selection_correct": true,
+      "tool_arguments_correct": true,
+      "grounding_status": "deterministic_fallback",
+      "numeric_provenance_pass": true,
+      "fallback_used": true,
+      "latency_seconds": 0.09070310000242898,
+      "tokens": 1040,
+      "estimated_cost_usd": 0.0031,
+      "raw_dataset_excluded": true,
+      "unhandled_exception": false
+    },
+    {
+      "id": "followup_context_isolation_turn_1",
+      "category": "multi_turn",
+      "expected_scope": "in_scope",
+      "actual_scope": "in_scope",
+      "scope_correct": true,
+      "expected_status": "answered",
+      "actual_status": "answered",
+      "status_correct": true,
+      "answer_content_correct": true,
+      "expected_tools": [
+        "list_sites"
+      ],
+      "actual_tools": [
+        "list_sites"
+      ],
+      "tool_selection_correct": true,
+      "tool_arguments_correct": true,
+      "grounding_status": "deterministic_render",
+      "numeric_provenance_pass": true,
+      "fallback_used": false,
+      "latency_seconds": 0.0036448999962885864,
+      "tokens": 0,
+      "estimated_cost_usd": 0.0,
+      "raw_dataset_excluded": true,
+      "unhandled_exception": false
+    },
+    {
+      "id": "followup_context_isolation_turn_2",
+      "category": "multi_turn",
+      "expected_scope": "in_scope",
+      "actual_scope": "in_scope",
+      "scope_correct": true,
+      "expected_status": "answered",
+      "actual_status": "answered",
+      "status_correct": true,
+      "answer_content_correct": true,
+      "expected_tools": [
+        "rank_sites"
+      ],
+      "actual_tools": [
+        "rank_sites"
+      ],
+      "tool_selection_correct": true,
+      "tool_arguments_correct": true,
+      "grounding_status": "deterministic_fallback",
+      "numeric_provenance_pass": true,
+      "fallback_used": true,
+      "latency_seconds": 4.393272000001161,
+      "tokens": 1040,
+      "estimated_cost_usd": 0.0031,
+      "raw_dataset_excluded": true,
+      "unhandled_exception": false
+    },
+    {
+      "id": "followup_entity_and_period_turn_1",
+      "category": "multi_turn",
+      "expected_scope": "in_scope",
+      "actual_scope": "in_scope",
+      "scope_correct": true,
+      "expected_status": "answered",
+      "actual_status": "answered",
+      "status_correct": true,
+      "answer_content_correct": true,
+      "expected_tools": [
+        "get_consumption_summary"
+      ],
+      "actual_tools": [
+        "get_consumption_summary"
+      ],
+      "tool_selection_correct": true,
+      "tool_arguments_correct": true,
+      "grounding_status": "deterministic_fallback",
+      "numeric_provenance_pass": true,
+      "fallback_used": true,
+      "latency_seconds": 1.1891007000012905,
+      "tokens": 1040,
+      "estimated_cost_usd": 0.0031,
+      "raw_dataset_excluded": true,
+      "unhandled_exception": false
+    },
+    {
+      "id": "followup_entity_and_period_turn_2",
+      "category": "multi_turn",
+      "expected_scope": "in_scope",
+      "actual_scope": "in_scope",
+      "scope_correct": true,
+      "expected_status": "answered",
+      "actual_status": "answered",
+      "status_correct": true,
+      "answer_content_correct": true,
+      "expected_tools": [
+        "calculate_load_factor"
+      ],
+      "actual_tools": [
+        "calculate_load_factor"
+      ],
+      "tool_selection_correct": true,
+      "tool_arguments_correct": true,
+      "grounding_status": "deterministic_fallback",
+      "numeric_provenance_pass": true,
+      "fallback_used": true,
+      "latency_seconds": 1.2701964999941993,
       "tokens": 1040,
       "estimated_cost_usd": 0.0031,
       "raw_dataset_excluded": true,

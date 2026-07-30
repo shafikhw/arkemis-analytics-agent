@@ -1,13 +1,13 @@
 # Final verification report
 
-Executed on July 29, 2026 from the assessment workspace. The commands below are the
+Executed on July 29-30, 2026 from the assessment workspace. The commands below are the
 actual final verification commands, not suggested commands.
 
 ## Code quality
 
 | Check | Command | Result |
 |---|---|---|
-| Formatting | `python -m ruff format src tests scripts app.py list_wattics_orgs.py` | Pass; 62 files unchanged |
+| Formatting | `python -m ruff format src tests scripts app.py list_wattics_orgs.py` | Pass; four newly edited files reformatted |
 | Formatting check | `python -m ruff format --check src tests scripts app.py list_wattics_orgs.py` | Pass; 62 files formatted |
 | Lint | `python -m ruff check src tests scripts app.py list_wattics_orgs.py` | Pass; all checks passed |
 | Static typing | `python -m mypy src scripts` | Pass; no issues in 52 source files |
@@ -21,28 +21,30 @@ All `python` commands used `.\.venv\Scripts\python.exe`.
 | Suite | Command | Result |
 |---|---|---:|
 | Unit/data/analytics/scalability | `python -m pytest tests\test_aggregation.py tests\test_analytics.py tests\test_cleaning.py tests\test_quality.py tests\test_extraction.py tests\test_scalability.py -q` | 27 passed |
-| Integration/tool/SDK | `python -m pytest tests\test_discovery.py tests\test_wattics_client.py tests\test_tools.py tests\test_openai_sdk_contract.py -q` | 14 passed |
-| Orchestration/fallback | `python -m pytest tests\test_orchestration.py tests\test_fallback_renderers.py -q` | 10 passed |
-| Guardrail/provenance | `python -m pytest tests\test_scope.py tests\test_response_validation.py -q` | 16 passed |
+| Integration/tool/analytics (latest focused run) | `python -m pytest tests\test_tools.py tests\test_analytics.py -q` | 12 passed |
+| Orchestration/SDK (latest focused run) | `python -m pytest tests\test_orchestration.py tests\test_openai_sdk_contract.py -q` | 9 passed |
+| Guardrails/routing (latest focused run) | `python -m pytest tests\test_scope.py -q` | 10 passed |
 | Cost accounting/UI caption | `python -m pytest tests\test_usage_tracking.py -q` | 5 passed |
 | Synchronization/data integrity | `python -m pytest tests\test_sync_manager.py tests\test_extraction.py tests\test_cleaning.py -q` | 17 passed |
-| Full suite | `python -m pytest -q` | 81 passed |
+| Full suite | `python -m pytest -q` | 85 passed |
 
 The synchronization manager was rerun independently after its persisted-status and
-dead-owner lock recovery fixes: 9/9 tests passed, and the full 81-test suite remained
+dead-owner lock recovery fixes: 9/9 tests passed, and the full 85-test suite remained
 green.
 
 ## Evaluation and smoke tests
 
-- `python scripts\run_evaluations.py`: 58/58 behavioral cases met expectations;
-  100% tool selection, argument accuracy, answer success, numeric provenance,
-  out-of-scope precision, and unsupported-energy handling; zero false refusals and
-  unhandled exceptions; peak regression 10/10.
+- `python scripts\run_evaluations.py`: 99/99 executed turns met expectations; 100%
+  tool selection, argument accuracy, answer success, required answer content, numeric
+  provenance, out-of-scope precision, and unsupported-energy handling; zero false
+  refusals and unhandled exceptions; peak regression 10/10.
 - `python scripts\smoke_test.py --start 2026-03-01 --end 2026-04-01`: organization,
   availability, consumption, weekday/weekend, and site-ranking probes all returned
   `status: ok`.
-- Streamlit was launched headlessly and probed over localhost: HTTP 200 with a
-  10,626-byte response.
+- Streamlit was launched headlessly and probed over localhost: HTTP 200.
+- Streamlit `AppTest` submitted `List sites` through the actual UI entry point and
+  verified `Organic Farm`, `Alpha Hotel`, and `Beta Resort & Spa`; no scope-decision
+  section was rendered and no application exception occurred.
 - The rendered app was then inspected in a browser. Synchronization and freshness
   metrics, last-success/latest-observation metadata, the stale-cache warning, Refresh
   data, question input, and send-state behavior were present. The unique Refresh and
@@ -95,7 +97,25 @@ The current Streamlit build returned HTTP 200. Static UI checks confirmed that `
 decision`, `source:`, `Answer used`, and `Token usage and cost unavailable` are absent
 from the rendering code. A fresh browser-level inspection was blocked before navigation
 by a local Codex browser-helper permission error; the earlier rendered-browser smoke
-evidence remains recorded above.
+evidence remains recorded above, and the current rendered path passed Streamlit
+`AppTest`.
+
+## Metadata-listing and context-isolation follow-up
+
+- `list_organizations`, `list_sites`, `list_meters`, and
+  `get_data_availability` now have complete deterministic renderers.
+- Obvious discovery questions use constrained direct plans and do not make a
+  live-model call.
+- The exact real-cache prompts `What organizations are available?`, `What sites and
+  meters are available?`, `List sites`, `What sites does food crop have?`, and `What
+  sites does Best Resorts Hotels include?` all returned the correct entity names and
+  resolved tool arguments.
+- Standalone commands such as `Rank sites` no longer inherit an organization from an
+  unrelated preceding turn; explicit follow-ups such as `that site` and `same period`
+  still use recent conversation context.
+- The first expanded evaluation exposed three routing/content defects. Each was
+  corrected and the complete 99-turn suite was rerun successfully; details are in
+  `EVALUATION_REPORT.md`.
 
 ## Refresh follow-up
 
@@ -109,6 +129,8 @@ A reported manual-refresh failure was traced to two independent environmental st
 
 `FileSyncLock` now records PID and hostname and immediately reclaims a lock whose local
 owner is no longer running. Live owners remain protected, and remote/unreadable locks
-retain age-based recovery. An actual locked incremental refresh then completed with
-zero failed meters, persisted success/fresh status, advanced common cache coverage
-through `2026-07-29T18:15:00Z`, and removed its lock.
+retain age-based recovery. The final actual incremental refresh completed successfully
+at `2026-07-29T21:58:38.774804+00:00`, with zero failed meters, persisted
+success/fresh status, common cache coverage through
+`2026-07-29T21:45:00+00:00`, and no retained error. The refresh CLI now parses
+standard `--help` before loading configuration or changing synchronization state.

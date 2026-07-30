@@ -54,6 +54,14 @@ def direct_tool_plans(
     today: date,
     history: Optional[Sequence[Mapping[str, str]]] = None,
 ) -> list[ToolPlan]:
+    metadata = _metadata_plans(
+        question,
+        decision,
+        registry,
+        history=history,
+    )
+    if metadata:
+        return metadata
     special = _multi_entity_plans(question, decision, registry)
     if special:
         return special
@@ -160,6 +168,87 @@ def _single_tool_plan(
         arguments=prepared,
         basis="deterministic intent, entity alias, and period resolution",
     )
+
+
+def _metadata_plans(
+    question: str,
+    decision: ScopeDecision,
+    registry: ToolRegistry,
+    *,
+    history: Optional[Sequence[Mapping[str, str]]] = None,
+) -> list[ToolPlan]:
+    """Plan entity discovery without paying for probabilistic model selection."""
+
+    text = _context_text(question, history)
+    lowered = question.casefold()
+    metadata_tools = {
+        "list_organizations",
+        "list_sites",
+        "list_meters",
+        "get_data_availability",
+    }
+    explicit_discovery = bool(
+        re.search(
+            r"\b(?:list|show)(?:\s+me)?(?:\s+the)?(?:\s+all)?"
+            r"(?:\s+available)?\s+(?:organi[sz]ations?|sites?|meters?)\b"
+            r"|\b(?:organi[sz]ations?|sites?|meters?)\b.*\bavailable\b"
+            r"|\b(?:what|which)\s+(?:organi[sz]ations?|sites?|meters?)\b"
+            r".*\b(?:does|do|has|have|include|configured)\b",
+            lowered,
+        )
+    )
+    if decision.suggested_tool and decision.suggested_tool not in metadata_tools:
+        return []
+    if decision.suggested_tool not in metadata_tools and not explicit_discovery:
+        return []
+
+    requested: list[str] = []
+    if decision.suggested_tool == "get_data_availability":
+        requested.append("get_data_availability")
+    else:
+        if re.search(r"\borgani[sz]ations?\b", lowered):
+            requested.append("list_organizations")
+        if re.search(r"\bsites?\b", lowered):
+            requested.append("list_sites")
+        if re.search(r"\bmeters?\b", lowered):
+            requested.append("list_meters")
+
+    if (
+        decision.suggested_tool in metadata_tools
+        and decision.suggested_tool not in requested
+    ):
+        requested.append(decision.suggested_tool)
+    if not requested:
+        return []
+
+    entities = _resolve_entities(text, registry)
+    arguments_by_tool: dict[str, Dict[str, Any]] = {
+        "list_organizations": {},
+        "list_sites": {"organization": entities.get("organization")},
+        "list_meters": {
+            "organization": entities.get("organization"),
+            "site": entities.get("site"),
+        },
+        "get_data_availability": {
+            "organization": entities.get("organization"),
+            "site": entities.get("site"),
+            "meter": entities.get("meter"),
+        },
+    }
+    plans: list[ToolPlan] = []
+    for tool_name in dict.fromkeys(requested):
+        try:
+            prepared = registry.prepare(tool_name, arguments_by_tool[tool_name])
+        except Exception:
+            return []
+        plans.append(
+            ToolPlan(
+                tool_name=tool_name,
+                arguments=prepared,
+                basis="deterministic metadata discovery and entity alias resolution",
+            )
+        )
+    return plans
 
 
 def _multi_entity_plans(
@@ -371,7 +460,7 @@ def _context_text(
     question: str,
     history: Optional[Sequence[Mapping[str, str]]],
 ) -> str:
-    if not history:
+    if not history or not _requires_history_context(question):
         return question
     relevant = [
         item.get("content", "")
@@ -379,6 +468,28 @@ def _context_text(
         if item.get("role") in {"user", "assistant"}
     ]
     return "\n".join([*relevant, question])
+
+
+def _requires_history_context(question: str) -> bool:
+    lowered = question.casefold()
+    return any(
+        marker in lowered
+        for marker in (
+            "that site",
+            "that meter",
+            "that organization",
+            "that organisation",
+            "same month",
+            "same week",
+            "same year",
+            "same period",
+            "compare it",
+            "compare them",
+            "what about",
+            "and its ",
+            "and their ",
+        )
+    )
 
 
 def _resolve_entities(text: str, registry: ToolRegistry) -> Dict[str, Optional[str]]:

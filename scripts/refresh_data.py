@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import argparse
 import json
 import sys
 from pathlib import Path
@@ -15,7 +16,14 @@ from src.data.cache import EnergyCache  # noqa: E402
 from src.data.sync_manager import AutoSyncManager  # noqa: E402
 
 
-def main() -> int:
+def main(argv=None) -> int:
+    parser = argparse.ArgumentParser(
+        description=(
+            "Run a locked incremental Wattics refresh while preserving the "
+            "previous valid cache if synchronization fails."
+        )
+    )
+    parser.parse_args(argv)
     settings = Settings.from_env(PROJECT_ROOT / ".env")
     settings.require(["WATTICS_API_TOKEN"])
     cache = EnergyCache(settings.cache_root)

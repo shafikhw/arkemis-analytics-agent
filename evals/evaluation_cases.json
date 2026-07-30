@@ -16,6 +16,102 @@
       "expected_tools": ["get_consumption_summary"]
     },
     {
+      "id": "metadata_list_organizations",
+      "category": "metadata_discovery",
+      "question": "What organizations are available?",
+      "expected_scope": "in_scope",
+      "expected_tools": ["list_organizations"],
+      "required_answer_fragments": ["Food Corp.", "Best Resorts Hotels"]
+    },
+    {
+      "id": "metadata_list_sites_and_meters",
+      "category": "metadata_discovery",
+      "question": "What sites and meters are available?",
+      "expected_scope": "in_scope",
+      "expected_tools": ["list_sites", "list_meters"],
+      "required_answer_fragments": [
+        "Available sites:",
+        "Organic Farm",
+        "Alpha Hotel",
+        "Beta Resort & Spa",
+        "Available meters:",
+        "Effluent Area"
+      ]
+    },
+    {
+      "id": "metadata_list_all_sites",
+      "category": "metadata_discovery",
+      "question": "List sites",
+      "expected_scope": "in_scope",
+      "expected_tools": ["list_sites"],
+      "required_answer_fragments": [
+        "Organic Farm",
+        "Alpha Hotel",
+        "Beta Resort & Spa"
+      ]
+    },
+    {
+      "id": "metadata_food_sites_typo",
+      "category": "metadata_discovery",
+      "question": "What sites does food crop have?",
+      "expected_scope": "in_scope",
+      "expected_tools": ["list_sites"],
+      "required_answer_fragments": ["Organic Farm", "Food Corp."],
+      "forbidden_answer_fragments": ["Alpha Hotel", "Beta Resort & Spa"]
+    },
+    {
+      "id": "metadata_hotel_sites",
+      "category": "metadata_discovery",
+      "question": "What sites does Best Resorts Hotels include?",
+      "expected_scope": "in_scope",
+      "expected_tools": ["list_sites"],
+      "required_answer_fragments": ["Alpha Hotel", "Beta Resort & Spa"],
+      "forbidden_answer_fragments": ["Organic Farm"]
+    },
+    {
+      "id": "metadata_list_all_meters",
+      "category": "metadata_discovery",
+      "question": "List all available meters",
+      "expected_scope": "in_scope",
+      "expected_tools": ["list_meters"],
+      "required_answer_fragments": [
+        "Effluent Area",
+        "MAIN",
+        "Kitchen",
+        "type: electricity"
+      ]
+    },
+    {
+      "id": "metadata_food_meters",
+      "category": "metadata_discovery",
+      "question": "Show the meters available for Food Corp.",
+      "expected_scope": "in_scope",
+      "expected_tools": ["list_meters"],
+      "required_answer_fragments": ["Effluent Area", "Organic Farm"],
+      "forbidden_answer_fragments": ["Alpha Hotel", "Beta Resort & Spa"]
+    },
+    {
+      "id": "metadata_beta_meters",
+      "category": "metadata_discovery",
+      "question": "Which meters does Beta Resort & Spa include?",
+      "expected_scope": "in_scope",
+      "expected_tools": ["list_meters"],
+      "required_answer_fragments": ["AHU Beta", "Kitchen", "Beta Resort & Spa"],
+      "forbidden_answer_fragments": ["Organic Farm"]
+    },
+    {
+      "id": "metadata_data_availability",
+      "category": "data_extraction",
+      "question": "What cached data coverage is available for Food Corp.?",
+      "expected_scope": "in_scope",
+      "expected_tools": ["get_data_availability"],
+      "required_answer_fragments": [
+        "Cached energy-data availability by meter:",
+        "Food Corp.",
+        "observations"
+      ]
+    },
+    {
       "id": "regression_periodless_rank_sites",
       "category": "supported",
       "question": "rank sites",
@@ -130,6 +226,174 @@
           }
         }
       ]
+    },
+    {
+      "id": "aggregation_hourly",
+      "category": "data_processing",
+      "question": "Show hourly consumption for Food Corp. in June 2026.",
+      "expected_scope": "in_scope",
+      "expected_tools": ["get_consumption_summary"]
+    },
+    {
+      "id": "aggregation_daily",
+      "category": "data_processing",
+      "question": "Show daily energy consumption for Organic Farm in June 2026.",
+      "expected_scope": "in_scope",
+      "expected_tools": ["get_consumption_summary"]
+    },
+    {
+      "id": "aggregation_weekly",
+      "category": "data_processing",
+      "question": "Show weekly electricity totals for Best Resorts Hotels in June 2026.",
+      "expected_scope": "in_scope",
+      "expected_tools": ["get_consumption_summary"]
+    },
+    {
+      "id": "aggregation_monthly",
+      "category": "data_processing",
+      "question": "Show monthly consumption for all organizations in June 2026.",
+      "expected_scope": "in_scope",
+      "expected_tools": ["get_consumption_summary"]
+    },
+    {
+      "id": "analytics_average_demand",
+      "category": "energy_analytics",
+      "question": "What was Food Corp.'s average demand in June 2026?",
+      "expected_scope": "in_scope",
+      "expected_tools": ["get_consumption_summary"]
+    },
+    {
+      "id": "analytics_peak_site",
+      "category": "energy_analytics",
+      "question": "When was peak demand at Beta Resort & Spa in June 2026?",
+      "expected_scope": "in_scope",
+      "expected_tools": ["get_peak_demand"]
+    },
+    {
+      "id": "analytics_load_factor_site",
+      "category": "energy_analytics",
+      "question": "Calculate Alpha Hotel's load factor in June 2026.",
+      "expected_scope": "in_scope",
+      "expected_tools": ["calculate_load_factor"]
+    },
+    {
+      "id": "analytics_weekday_weekend_site",
+      "category": "energy_analytics",
+      "question": "How did weekday consumption compare with weekend consumption at Beta Resort & Spa in June 2026?",
+      "expected_scope": "in_scope",
+      "expected_tools": ["compare_weekday_weekend"]
+    },
+    {
+      "id": "analytics_baseload_meter",
+      "category": "energy_analytics",
+      "question": "Estimate baseload for each meter at Organic Farm in June 2026.",
+      "expected_scope": "in_scope",
+      "expected_tools": ["estimate_baseload"]
+    },
+    {
+      "id": "analytics_operational_load",
+      "category": "energy_analytics",
+      "question": "Separate baseload from operational load at Alpha Hotel in June 2026.",
+      "expected_scope": "in_scope",
+      "expected_tools": ["estimate_baseload"]
+    },
+    {
+      "id": "analytics_anomaly_site",
+      "category": "energy_analytics",
+      "question": "Were there anomalies at Organic Farm in June 2026?",
+      "expected_scope": "in_scope",
+      "expected_tools": ["detect_anomalies"]
+    },
+    {
+      "id": "analytics_rank_total",
+      "category": "energy_analytics",
+      "question": "Rank all sites by total consumption in June 2026.",
+      "expected_scope": "in_scope",
+      "expected_tools": ["rank_sites"]
+    },
+    {
+      "id": "analytics_rank_average_daily",
+      "category": "energy_analytics",
+      "question": "Rank sites by average daily consumption in June 2026.",
+      "expected_scope": "in_scope",
+      "expected_tools": ["rank_sites"]
+    },
+    {
+      "id": "analytics_rank_load_factor",
+      "category": "energy_analytics",
+      "question": "Rank sites by load factor in June 2026.",
+      "expected_scope": "in_scope",
+      "expected_tools": ["rank_sites"]
+    },
+    {
+      "id": "analytics_rank_completeness",
+      "category": "energy_analytics",
+      "question": "Rank sites by data completeness in June 2026.",
+      "expected_scope": "in_scope",
+      "expected_tools": ["rank_sites"]
+    },
+    {
+      "id": "analytics_profile_normalized",
+      "category": "energy_analytics",
+      "question": "Show the normalized hourly load profile for Food Corp. in June 2026.",
+      "expected_scope": "in_scope",
+      "expected_tools": ["get_load_profile"]
+    },
+    {
+      "id": "quality_missing_intervals",
+      "category": "robustness",
+      "question": "How many missing intervals did Food Corp. have in June 2026?",
+      "expected_scope": "in_scope",
+      "expected_tools": ["get_data_quality"]
+    },
+    {
+      "id": "quality_duplicates",
+      "category": "robustness",
+      "question": "Were there duplicate records in the cached energy data?",
+      "expected_scope": "in_scope",
+      "expected_tools": ["get_data_quality"]
+    },
+    {
+      "id": "quality_timezone",
+      "category": "robustness",
+      "question": "Are there timezone assumptions in the energy data?",
+      "expected_scope": "in_scope",
+      "expected_tools": ["get_data_quality"]
+    },
+    {
+      "id": "comparison_organizations_total",
+      "category": "cross_organization",
+      "question": "Compare the organizations by total consumption in June 2026.",
+      "expected_scope": "in_scope",
+      "expected_tools": ["compare_entities"]
+    },
+    {
+      "id": "comparison_sites_load_factor",
+      "category": "cross_site",
+      "question": "Compare sites by load factor in June 2026.",
+      "expected_scope": "in_scope",
+      "expected_tools": ["compare_entities"]
+    },
+    {
+      "id": "method_baseload",
+      "category": "methodology",
+      "question": "Explain the baseload methodology using the available June 2026 data.",
+      "expected_scope": "in_scope",
+      "expected_tools": ["estimate_baseload"]
+    },
+    {
+      "id": "method_anomaly",
+      "category": "methodology",
+      "question": "Explain how anomalies are detected using the available June 2026 data.",
+      "expected_scope": "in_scope",
+      "expected_tools": ["detect_anomalies"]
+    },
+    {
+      "id": "incomplete_current_month",
+      "category": "incomplete_period",
+      "question": "What is Food Corp.'s total consumption this month?",
+      "expected_scope": "in_scope",
+      "expected_tools": ["get_consumption_summary"]
     },
     {
       "id": "paraphrase_peak",
@@ -429,6 +693,70 @@
           "question": "Now compare weekday and weekend for the same period.",
           "expected_scope": "in_scope",
           "expected_tools": ["compare_weekday_weekend"]
+        }
+      ]
+    },
+    {
+      "id": "followup_metadata_availability",
+      "turns": [
+        {
+          "question": "Which meters does Beta Resort & Spa include?",
+          "expected_scope": "in_scope",
+          "expected_tools": ["list_meters"],
+          "required_answer_fragments": ["AHU Beta", "Kitchen"]
+        },
+        {
+          "question": "What cached data coverage is available for that site?",
+          "expected_scope": "in_scope",
+          "expected_tools": ["get_data_availability"],
+          "required_answer_fragments": ["Beta Resort & Spa", "observations"]
+        }
+      ]
+    },
+    {
+      "id": "followup_operational_load",
+      "turns": [
+        {
+          "question": "Show Alpha Hotel's total consumption in June 2026.",
+          "expected_scope": "in_scope",
+          "expected_tools": ["get_consumption_summary"]
+        },
+        {
+          "question": "Separate baseload and operational load for that site in the same period.",
+          "expected_scope": "in_scope",
+          "expected_tools": ["estimate_baseload"]
+        }
+      ]
+    },
+    {
+      "id": "followup_context_isolation",
+      "turns": [
+        {
+          "question": "What sites does Best Resorts Hotels include?",
+          "expected_scope": "in_scope",
+          "expected_tools": ["list_sites"],
+          "required_answer_fragments": ["Alpha Hotel", "Beta Resort & Spa"]
+        },
+        {
+          "question": "Rank sites",
+          "expected_scope": "in_scope",
+          "expected_tools": ["rank_sites"],
+          "required_answer_fragments": ["Organic Farm"]
+        }
+      ]
+    },
+    {
+      "id": "followup_entity_and_period",
+      "turns": [
+        {
+          "question": "What was Food Corp.'s total consumption in June 2026?",
+          "expected_scope": "in_scope",
+          "expected_tools": ["get_consumption_summary"]
+        },
+        {
+          "question": "What about its load factor in the same period?",
+          "expected_scope": "in_scope",
+          "expected_tools": ["calculate_load_factor"]
         }
       ]
     }
